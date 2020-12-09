@@ -1,2 +1,2 @@
-pip3 freeze > requirements.env.txt
+pip freeze > requirements.env.txt
 pipreqs --force .
