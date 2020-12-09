@@ -3,9 +3,12 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open("VERSION", "r") as fversion:
+    version = fversion.read()    
+
 setuptools.setup(
     name="trdb2py",
-    version="0.1.1",
+    version=version,
     author="Zerro Zhao",
     author_email="zerrozhao@gmail.com",
     description="tradingdb2 for python",

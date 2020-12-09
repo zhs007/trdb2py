@@ -1,0 +1,1 @@
+python -m grpc_tools.protoc --python_out=trdb2py/ --grpc_python_out=trdb2py/ -I=protos/ protos/*.proto
