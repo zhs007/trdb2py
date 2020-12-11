@@ -35,7 +35,7 @@ def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int) -> pd.DataF
     return pd.DataFrame(fv)
 
 
-def genSimTradingParams(cfg, title, lstParams: list, ignoreCache: bool = False):
+def genSimTradingParams(cfg, lstParams: list, ignoreCache: bool = False):
     for i in range(len(lstParams)):
         yield trdb2py.tradingdb2_pb2.RequestSimTrading(
             basicRequest=trdb2py.trading2_pb2.BasicRequestData(
@@ -44,7 +44,6 @@ def genSimTradingParams(cfg, title, lstParams: list, ignoreCache: bool = False):
             params=lstParams[i],
             ignoreCache=ignoreCache,
             index=i,
-            title=title,
         )
 
 
@@ -61,3 +60,21 @@ def simTradings(cfg, lstParams: list, ignoreCache: bool = False) -> list:
             lstRes.append({'title': pnl.title, 'pnl': pnl.total})
 
     return lstRes
+
+
+def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: bool = False) -> dict:
+    channel = grpc.insecure_channel(cfg['servaddr'])
+    stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    response = stub.simTrading(trdb2py.tradingdb2_pb2.RequestSimTrading(
+        basicRequest=trdb2py.trading2_pb2.BasicRequestData(
+            token=cfg['token'],
+        ),
+        params=params,
+    ))
+
+    if len(response.pnl) > 0:
+        pnl = response.pnl[0]
+        return {'title': pnl.title, 'pnl': pnl.total}
+
+    return None
