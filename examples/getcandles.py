@@ -6,3 +6,5 @@ print(cfg)
 
 ret = trdb2py.getAssetCandles(cfg, 'jrj.510310', 0, -1)
 print(ret)
+
+trdb2py.showAssetCandles('510310', ret, toImg=True)
