@@ -4,7 +4,7 @@ import time
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYears2, buildPNLWinRateInMonths
+from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYears2, buildPNLWinRateInMonths, buildPNLListWinRateInMonths2
 
 
 def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False):
@@ -100,3 +100,19 @@ def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = ''
     # print(columns)
 
     showHeatmap(df, columns, valtype, valoff, toImg)
+
+
+def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+    arr = buildPNLListWinRateInMonths2(lstpnl)
+
+    fig = go.Figure()
+
+    for v in arr:
+        fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
+                                 mode='lines',
+                                 name=v['title']))
+
+    if toImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()

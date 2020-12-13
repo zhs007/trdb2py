@@ -281,3 +281,47 @@ def buildPNLWinRateInMonths(lstpnl: list) -> tuple:
     # print(fv0)
 
     return (pd.DataFrame(fv0), minyear, minmonth, maxyear, maxmonth)
+
+
+def buildPNLWinRateInMonths2(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataFrame:
+    fv0 = {
+        'date': [],
+        'winrate': [],
+    }
+
+    sdt = datetime.fromtimestamp(pnl.values[0].ts)
+    edt = datetime.fromtimestamp(pnl.values[len(pnl.values) - 1].ts)
+
+    minyear = sdt.year
+    maxyear = edt.year
+    minmonth = sdt.month
+    maxmonth = edt.month
+
+    for y in range(minyear, maxyear + 1):
+        if y == minyear:
+            for m in range(minmonth, 12 + 1):
+                fv0['date'].append(y * 100 + m)
+                ret = calcPNLWinRateInYearMonth(pnl, y)
+                fv0['winrate'].append(ret['winrate'])
+        elif y == maxyear:
+            for m in range(1, maxmonth + 1):
+                fv0['date'].append(y * 100 + m)
+                ret = calcPNLWinRateInYearMonth(pnl, y)
+                fv0['winrate'].append(ret['winrate'])
+        else:
+            for m in range(1, 12 + 1):
+                fv0['date'].append(y * 100 + m)
+                ret = calcPNLWinRateInYearMonth(pnl, y)
+                fv0['winrate'].append(ret['winrate'])
+
+    return pd.DataFrame(fv0)
+
+
+def buildPNLListWinRateInMonths2(lstpnl: list) -> list:
+    arr = []
+
+    for v in lstpnl:
+        df = buildPNLWinRateInMonths2(v['pnl'])
+        arr.append({'title': v['title'], 'df': df})
+
+    return arr
