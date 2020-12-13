@@ -17,7 +17,7 @@ def isWinAtTimeIntervals(pnl: trdb2py.trading2_pb2.PNLAssetData, tsStart: int, t
 
     for v in pnl.values:
         if v.ts >= tsStart and v.ts < tsEnd:
-            if hasStart:
+            if not hasStart:
                 hasStart = True
                 pvStart = v.perValue
 
