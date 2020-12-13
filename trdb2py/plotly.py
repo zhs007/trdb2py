@@ -16,7 +16,7 @@ def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close',
         fig.show()
 
 
-def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: float = 0.0):
+def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False):
     data = []
 
     for index, row in df.iterrows():
@@ -34,10 +34,13 @@ def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: floa
         x=columns,
         y=df['title']))
 
-    fig.show()
+    if toImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
 
 
-def showHeatmapWinRateInYears(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0):
+def showHeatmapWinRateInYears(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False):
     ret = buildPNLWinRateInYears(lstpnl)
     columns = []
 
@@ -53,4 +56,4 @@ def showHeatmapWinRateInYears(lstpnl: list, sortby: str = '', valtype: str = '',
 
     # print(columns)
 
-    showHeatmap(df, columns, valtype, valoff)
+    showHeatmap(df, columns, valtype, valoff, toImg)
