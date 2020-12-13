@@ -301,17 +301,17 @@ def buildPNLWinRateInMonths2(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataF
         if y == minyear:
             for m in range(minmonth, 12 + 1):
                 fv0['date'].append(y * 100 + m)
-                ret = calcPNLWinRateInYearMonth(pnl, y)
+                ret = calcPNLWinRateInYearMonth(pnl, y, m)
                 fv0['winrate'].append(ret['winrate'])
         elif y == maxyear:
             for m in range(1, maxmonth + 1):
                 fv0['date'].append(y * 100 + m)
-                ret = calcPNLWinRateInYearMonth(pnl, y)
+                ret = calcPNLWinRateInYearMonth(pnl, y, m)
                 fv0['winrate'].append(ret['winrate'])
         else:
             for m in range(1, 12 + 1):
                 fv0['date'].append(y * 100 + m)
-                ret = calcPNLWinRateInYearMonth(pnl, y)
+                ret = calcPNLWinRateInYearMonth(pnl, y, m)
                 fv0['winrate'].append(ret['winrate'])
 
     return pd.DataFrame(fv0)
