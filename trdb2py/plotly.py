@@ -84,11 +84,11 @@ def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = ''
     if sortby != '':
         df = ret[0].sort_values(by=sortby).reset_index(drop=True)
 
-    for y in range(ret[1], ret[2] + 1):
+    for y in range(ret[1], ret[3] + 1):
         if y == ret[1]:
-            for m in range(ret[3], 12 + 1):
+            for m in range(ret[2], 12 + 1):
                 columns.append('m{}{}'.format(y, m))
-        elif y == ret[2]:
+        elif y == ret[3]:
             for m in range(1, ret[4] + 1):
                 columns.append('m{}{}'.format(y, m))
         else:

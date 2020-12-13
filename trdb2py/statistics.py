@@ -246,6 +246,17 @@ def buildPNLWinRateInMonths(lstpnl: list) -> tuple:
     }
 
     for y in range(minyear, maxyear + 1):
+        if y == minyear:
+            for m in range(minmonth, 12 + 1):
+                fv0['m{}{}'.format(y, m)] = []
+        elif y == maxyear:
+            for m in range(1, maxmonth + 1):
+                fv0['m{}{}'.format(y, m)] = []
+        else:
+            for m in range(1, 12 + 1):
+                fv0['m{}{}'.format(y, m)] = []
+
+    for y in range(minyear, maxyear + 1):
         fv0['y{}'.format(y)] = []
 
         for v in lstpnl:
