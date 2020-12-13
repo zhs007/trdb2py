@@ -62,8 +62,8 @@ def calcPNLWinRateInYear(pnl: trdb2py.trading2_pb2.PNLAssetData, year: int) -> d
     if sellnums > 0:
         ret['winrate'] = winnums * 1.0 / sellnums
     else:
-        dtStart = datetime.strptime('{}-01-01'.formta(year), '%Y-%m-%d')
-        dtEnd = datetime.strptime('{}-01-01'.formta(year + 1), '%Y-%m-%d')
+        dtStart = datetime.strptime('{}-01-01'.format(year), '%Y-%m-%d')
+        dtEnd = datetime.strptime('{}-01-01'.format(year + 1), '%Y-%m-%d')
         iswin = isWinAtTimeIntervals(
             pnl, dtStart.timestamp(), dtEnd.timestamp())
 
