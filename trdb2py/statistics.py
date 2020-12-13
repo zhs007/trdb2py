@@ -6,6 +6,26 @@ import time
 import pandas as pd
 
 
+def isWinAtTimeIntervals(pnl: trdb2py.trading2_pb2.PNLAssetData, tsStart: int, tsEnd: int) -> bool:
+    """
+    isWinAtTimeIntervals - 判断这个时间区间内，是否赢（不亏损），时间区间是[tsStart, tsEnd)
+    """
+
+    hasStart = False
+    pvStart = 0
+    pvEnd = 0
+
+    for v in pnl.values:
+        if v.ts >= tsStart and v.ts < tsEnd:
+            if hasStart:
+                hasStart = True
+                pvStart = v.perValue
+
+            pvEnd = v.perValue
+
+    return pvEnd >= pvStart
+
+
 def calcPNLWinRateInYear(pnl: trdb2py.trading2_pb2.PNLAssetData, year: int) -> dict:
     sellnums = 0
     winnums = 0
@@ -41,6 +61,16 @@ def calcPNLWinRateInYear(pnl: trdb2py.trading2_pb2.PNLAssetData, year: int) -> d
            'winrate': 0, 'buynums': buynums}
     if sellnums > 0:
         ret['winrate'] = winnums * 1.0 / sellnums
+    else:
+        dtStart = datetime.strptime('{}-01-01'.formta(year), '%Y-%m-%d')
+        dtEnd = datetime.strptime('{}-01-01'.formta(year + 1), '%Y-%m-%d')
+        iswin = isWinAtTimeIntervals(
+            pnl, dtStart.timestamp(), dtEnd.timestamp())
+
+        if iswin:
+            return 1.0
+
+        return 0.0
 
     return ret
 
