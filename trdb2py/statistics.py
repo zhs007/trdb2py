@@ -149,7 +149,6 @@ def buildPNLWinRateInYears2(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataFr
 
 
 def buildPNLListWinRateInYears2(lstpnl: list) -> list:
-
     arr = []
 
     for v in lstpnl:
