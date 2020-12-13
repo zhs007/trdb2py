@@ -45,7 +45,7 @@ def calcPNLWinRateInYear(pnl: trdb2py.trading2_pb2.PNLAssetData, year: int) -> d
     return ret
 
 
-def buildPNLWinRateReportYear(lstpnl: list) -> tuple:
+def buildPNLWinRateInYears(lstpnl: list) -> tuple:
     minyear = 0
     maxyear = 0
 
