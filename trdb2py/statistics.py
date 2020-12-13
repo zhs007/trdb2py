@@ -257,8 +257,6 @@ def buildPNLWinRateInMonths(lstpnl: list) -> tuple:
                 fv0['m{}{}'.format(y, m)] = []
 
     for y in range(minyear, maxyear + 1):
-        fv0['y{}'.format(y)] = []
-
         for v in lstpnl:
             if y == minyear:
                 fv0['title'].append(v['title'])
