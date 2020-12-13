@@ -68,9 +68,9 @@ def calcPNLWinRateInYear(pnl: trdb2py.trading2_pb2.PNLAssetData, year: int) -> d
             pnl, dtStart.timestamp(), dtEnd.timestamp())
 
         if iswin:
-            return 1.0
-
-        return 0.0
+            ret['winrate'] = 1.0
+        else:
+            ret['winrate'] = 0.0
 
     return ret
 
