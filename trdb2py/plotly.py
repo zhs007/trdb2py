@@ -4,7 +4,7 @@ import time
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYears2
+from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYears2, buildPNLWinRateInMonths
 
 
 def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False):
@@ -73,3 +73,30 @@ def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toI
         fig.show(renderer="png")
     else:
         fig.show()
+
+
+def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+    ret = buildPNLWinRateInMonths(lstpnl)
+    columns = []
+
+    df = ret[0]
+
+    if sortby != '':
+        df = ret[0].sort_values(by=sortby).reset_index(drop=True)
+
+    for y in range(ret[1], ret[2] + 1):
+        if y == ret[1]:
+            for m in range(ret[3], 12 + 1):
+                columns.append('m{}{}'.format(y, m))
+        elif y == ret[2]:
+            for m in range(1, ret[4] + 1):
+                columns.append('m{}{}'.format(y, m))
+        else:
+            for m in range(1, 12 + 1):
+                columns.append('m{}{}'.format(y, m))
+
+    columns.append('total')
+
+    # print(columns)
+
+    showHeatmap(df, columns, valtype, valoff, toImg)
