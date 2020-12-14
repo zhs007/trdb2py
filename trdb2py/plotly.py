@@ -16,6 +16,51 @@ def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close',
         fig.show()
 
 
+def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', toImg: bool = False):
+    fv0 = {'date': [], 'value': []}
+    for v in pnl['pnl'].values:
+        fv0['date'].append(datetime.fromtimestamp(
+            v.ts).strftime(dtFormat))
+
+        if isPerValue:
+            fv0['value'].append(v.perValue)
+        else:
+            fv0['value'].append(v.value - v.cost)
+
+    fig = px.line(pd.DataFrame(fv0), x='date', y='value', title=pnl['title'])
+
+    if toImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
+
+
+def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', toImg: bool = False):
+    fig = go.Figure()
+
+    for pnl in lstpnl:
+        fv0 = {'date': [], 'value': []}
+        for v in pnl['pnl'].values:
+            fv0['date'].append(datetime.fromtimestamp(
+                v.ts).strftime(dtFormat))
+
+            if isPerValue:
+                fv0['value'].append(v.perValue)
+            else:
+                fv0['value'].append(v.value - v.cost)
+
+        df = pd.DataFrame(fv0)
+
+        fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
+                                 mode='lines',
+                                 name=pnl['title']))
+
+    if toImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
+
+
 def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False):
     data = []
 
