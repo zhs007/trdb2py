@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import trdb2py.trading2_pb2
-from trdb2py.utils import str2Asset
+from trdb2py.utils import str2asset
 from datetime import datetime
 import time
 import pandas as pd

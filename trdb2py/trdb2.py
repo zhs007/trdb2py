@@ -3,7 +3,7 @@ import grpc
 import trdb2py.trading2_pb2
 import trdb2py.tradingdb2_pb2
 import trdb2py.tradingdb2_pb2_grpc
-from trdb2py.utils import str2Asset
+from trdb2py.utils import str2asset
 from datetime import datetime
 import time
 import pandas as pd
@@ -13,7 +13,7 @@ def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, scale: floa
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
-    curasset = str2Asset(asset)
+    curasset = str2asset(asset)
 
     response = stub.getCandles(trdb2py.tradingdb2_pb2.RequestGetCandles(
         market=curasset.market,

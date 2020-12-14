@@ -2,7 +2,7 @@
 import trdb2py.trading2_pb2
 
 
-def str2Asset(asset: str) -> trdb2py.trading2_pb2.Asset:
+def str2asset(asset: str) -> trdb2py.trading2_pb2.Asset:
     arr = asset.split('.', -1)
     if len(arr) != 2:
         raise ValueError
@@ -34,5 +34,5 @@ def nextWeekDay(cday: int, offday: int, startday: int = 1, endday: int = 5) -> i
     return cday
 
 
-def asset2Str(asset: trdb2py.trading2_pb2.Asset) -> str:
+def asset2str(asset: trdb2py.trading2_pb2.Asset) -> str:
     return asset.market + '.' + asset.code

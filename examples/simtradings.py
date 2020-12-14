@@ -53,7 +53,7 @@ for day in range(0, 4):
 
         s0 = trdb2py.trading2_pb2.Strategy(
             name="normal",
-            asset=trdb2py.str2Asset(assets[0]),
+            asset=trdb2py.str2asset(assets[0]),
         )
 
         s0.buy.extend([buy0, buyup])
@@ -62,7 +62,7 @@ for day in range(0, 4):
         s0.paramsSell.CopyFrom(paramssell)
         s0.paramsInit.CopyFrom(paramsinit)
         lstparams.append(trdb2py.trading2_pb2.SimTradingParams(
-            assets=[trdb2py.str2Asset('jrj.510310')],
+            assets=[trdb2py.str2asset('jrj.510310')],
             startTs=0,
             endTs=-1,
             strategies=[s0],
@@ -71,7 +71,7 @@ for day in range(0, 4):
 
         s1 = trdb2py.trading2_pb2.Strategy(
             name="normal",
-            asset=trdb2py.str2Asset(assets[0]),
+            asset=trdb2py.str2asset(assets[0]),
         )
 
         s1.buy.extend([buy0, buydown])
@@ -80,7 +80,7 @@ for day in range(0, 4):
         s1.paramsSell.CopyFrom(paramssell)
         s1.paramsInit.CopyFrom(paramsinit)
         lstparams.append(trdb2py.trading2_pb2.SimTradingParams(
-            assets=[trdb2py.str2Asset('jrj.510310')],
+            assets=[trdb2py.str2asset('jrj.510310')],
             startTs=0,
             endTs=-1,
             strategies=[s1],
