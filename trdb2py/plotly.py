@@ -109,10 +109,21 @@ def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toI
 
     fig = go.Figure()
 
-    for v in arr:
-        fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
-                                 mode='lines',
-                                 name=v['title']))
+    if valtype == 'abs':
+        for v in arr:
+
+            vals = []
+            for wrv in v['df']['winrate']:
+                vals.append(abs(wrv + valoff))
+
+            fig.add_trace(go.Scatter(x=v['df']['date'], y=vals,
+                                     mode='lines',
+                                     name=v['title']))
+    else:
+        for v in arr:
+            fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
+                                     mode='lines',
+                                     name=v['title']))
 
     if toImg:
         fig.show(renderer="png")
