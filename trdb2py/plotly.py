@@ -7,8 +7,9 @@ import plotly.graph_objects as go
 from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYears2, buildPNLWinRateInMonths, buildPNLListWinRateInMonths2
 
 
-def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False):
-    fig = px.line(dfCandles, x='date', y=columm, title=title)
+def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False, width=1024, height=768):
+    fig = px.line(dfCandles, x='date', y=columm,
+                  title=title, width=width, height=height)
 
     if toImg:
         fig.show(renderer="png")
@@ -16,7 +17,7 @@ def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close',
         fig.show()
 
 
-def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     data = []
 
     for index, row in df.iterrows():
@@ -34,13 +35,19 @@ def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: floa
         x=columns,
         y=df['title']))
 
+    fig.update_layout(
+        autosize=False,
+        width=width,
+        height=height,
+    )
+
     if toImg:
         fig.show(renderer="png")
     else:
         fig.show()
 
 
-def showHeatmapWinRateInYears(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+def showHeatmapWinRateInYears(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     ret = buildPNLWinRateInYears(lstpnl)
     columns = []
 
@@ -56,10 +63,10 @@ def showHeatmapWinRateInYears(lstpnl: list, sortby: str = '', valtype: str = '',
 
     # print(columns)
 
-    showHeatmap(df, columns, valtype, valoff, toImg)
+    showHeatmap(df, columns, valtype, valoff, toImg, width, height)
 
 
-def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     arr = buildPNLListWinRateInYears2(lstpnl)
 
     fig = go.Figure()
@@ -69,13 +76,19 @@ def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toI
                                  mode='lines',
                                  name=v['title']))
 
+    fig.update_layout(
+        autosize=False,
+        width=width,
+        height=height,
+    )
+
     if toImg:
         fig.show(renderer="png")
     else:
         fig.show()
 
 
-def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     ret = buildPNLWinRateInMonths(lstpnl)
     columns = []
 
@@ -99,10 +112,10 @@ def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = ''
 
     # print(columns)
 
-    showHeatmap(df, columns, valtype, valoff, toImg)
+    showHeatmap(df, columns, valtype, valoff, toImg, width, height)
 
 
-def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False):
+def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     arr = buildPNLListWinRateInMonths2(lstpnl)
 
     fig = go.Figure()
@@ -111,6 +124,12 @@ def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, to
         fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
                                  mode='lines',
                                  name=v['title']))
+
+    fig.update_layout(
+        autosize=False,
+        width=width,
+        height=height,
+    )
 
     if toImg:
         fig.show(renderer="png")
