@@ -20,14 +20,14 @@ paramsinit = trdb2py.trading2_pb2.InitParams(
 
 s0 = trdb2py.trading2_pb2.Strategy(
     name="normal",
-    asset=trdb2py.str2Asset(asset),
+    asset=trdb2py.str2asset(asset),
     buy=[buy0],
     paramsBuy=paramsbuy,
     paramsInit=paramsinit,
 )
 
 params = trdb2py.trading2_pb2.SimTradingParams(
-    assets=[trdb2py.str2Asset(asset)],
+    assets=[trdb2py.str2asset(asset)],
     strategies=[s0],
 )
 

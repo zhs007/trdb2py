@@ -3,17 +3,17 @@ import grpc
 import trdb2py.trading2_pb2
 import trdb2py.tradingdb2_pb2
 import trdb2py.tradingdb2_pb2_grpc
-from trdb2py.utils import str2Asset
+from trdb2py.utils import str2asset
 from datetime import datetime
 import time
 import pandas as pd
 
 
-def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, scale: float = 10000.0) -> pd.DataFrame:
+def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', scale: float = 10000.0) -> pd.DataFrame:
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
-    curasset = str2Asset(asset)
+    curasset = str2asset(asset)
 
     response = stub.getCandles(trdb2py.tradingdb2_pb2.RequestGetCandles(
         market=curasset.market,
@@ -29,7 +29,7 @@ def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, scale: floa
     for curres in response:
         for candle in curres.candles.candles:
             fv['date'].append(datetime.fromtimestamp(
-                candle.ts).strftime('%Y-%m-%d'))
+                candle.ts).strftime(dtFormat))
             fv['open'].append(candle.open / scale)
             fv['close'].append(candle.close / scale)
             fv['high'].append(candle.high / scale)

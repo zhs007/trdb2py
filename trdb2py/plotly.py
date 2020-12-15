@@ -17,6 +17,58 @@ def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close',
         fig.show()
 
 
+def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', toImg: bool = False, width=1024, height=768):
+    fv0 = {'date': [], 'value': []}
+    for v in pnl['pnl'].values:
+        fv0['date'].append(datetime.fromtimestamp(
+            v.ts).strftime(dtFormat))
+
+        if isPerValue:
+            fv0['value'].append(v.perValue)
+        else:
+            fv0['value'].append(v.value - v.cost)
+
+    fig = px.line(pd.DataFrame(fv0), x='date', y='value',
+                  title=pnl['title'], width=width, height=height)
+
+    if toImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
+
+
+def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', toImg: bool = False, width=1024, height=768):
+    fig = go.Figure()
+
+    for pnl in lstpnl:
+        fv0 = {'date': [], 'value': []}
+        for v in pnl['pnl'].values:
+            fv0['date'].append(datetime.fromtimestamp(
+                v.ts).strftime(dtFormat))
+
+            if isPerValue:
+                fv0['value'].append(v.perValue)
+            else:
+                fv0['value'].append(v.value - v.cost)
+
+        df = pd.DataFrame(fv0)
+
+        fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
+                                 mode='lines',
+                                 name=pnl['title']))
+
+    fig.update_layout(
+        autosize=False,
+        width=width,
+        height=height,
+    )
+
+    if toImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
+
+
 def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     data = []
 
@@ -71,10 +123,21 @@ def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toI
 
     fig = go.Figure()
 
-    for v in arr:
-        fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
-                                 mode='lines',
-                                 name=v['title']))
+    if valtype == 'abs':
+        for v in arr:
+
+            vals = []
+            for wrv in v['df']['winrate']:
+                vals.append(abs(wrv + valoff))
+
+            fig.add_trace(go.Scatter(x=v['df']['date'], y=vals,
+                                     mode='lines',
+                                     name=v['title']))
+    else:
+        for v in arr:
+            fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
+                                     mode='lines',
+                                     name=v['title']))
 
     fig.update_layout(
         autosize=False,
@@ -120,10 +183,21 @@ def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, to
 
     fig = go.Figure()
 
-    for v in arr:
-        fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
-                                 mode='lines',
-                                 name=v['title']))
+    if valtype == 'abs':
+        for v in arr:
+
+            vals = []
+            for wrv in v['df']['winrate']:
+                vals.append(abs(wrv + valoff))
+
+            fig.add_trace(go.Scatter(x=v['df']['date'], y=vals,
+                                     mode='lines',
+                                     name=v['title']))
+    else:
+        for v in arr:
+            fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
+                                     mode='lines',
+                                     name=v['title']))
 
     fig.update_layout(
         autosize=False,

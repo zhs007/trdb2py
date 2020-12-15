@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import trdb2py.trading2_pb2
-from trdb2py.utils import str2Asset, asset2Str
+from trdb2py.utils import str2asset, asset2str
 from datetime import datetime
 import time
 import pandas as pd
@@ -49,7 +49,7 @@ def buildPNLReport(lstpnl: list) -> pd.DataFrame:
     for v in lstpnl:
         fv0['title'].append(v['title'])
 
-        fv0['asset'].append(asset2Str(v['pnl'].asset))
+        fv0['asset'].append(asset2str(v['pnl'].asset))
 
         fv0['maxDrawdown'].append(v['pnl'].maxDrawdown)
         fv0['maxDrawdownStart'].append(datetime.fromtimestamp(
