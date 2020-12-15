@@ -9,10 +9,10 @@ from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYear
 
 def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False, width=1024, height=768):
     fig = px.line(dfCandles, x='date', y=columm,
-                  title=title, width=width, height=height)
+                  title=title)
 
     if toImg:
-        fig.show(renderer="png")
+        fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
 
@@ -29,10 +29,10 @@ def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', toIm
             fv0['value'].append(v.value - v.cost)
 
     fig = px.line(pd.DataFrame(fv0), x='date', y='value',
-                  title=pnl['title'], width=width, height=height)
+                  title=pnl['title'])
 
     if toImg:
-        fig.show(renderer="png")
+        fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
 
@@ -57,14 +57,8 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
                                  mode='lines',
                                  name=pnl['title']))
 
-    fig.update_layout(
-        autosize=False,
-        width=width,
-        height=height,
-    )
-
     if toImg:
-        fig.show(renderer="png")
+        fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
 
@@ -87,14 +81,8 @@ def showHeatmap(df: pd.DataFrame, columns: list, valtype: str = '', valoff: floa
         x=columns,
         y=df['title']))
 
-    fig.update_layout(
-        autosize=False,
-        width=width,
-        height=height,
-    )
-
     if toImg:
-        fig.show(renderer="png")
+        fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
 
@@ -139,14 +127,8 @@ def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toI
                                      mode='lines',
                                      name=v['title']))
 
-    fig.update_layout(
-        autosize=False,
-        width=width,
-        height=height,
-    )
-
     if toImg:
-        fig.show(renderer="png")
+        fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
 
@@ -199,13 +181,7 @@ def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, to
                                      mode='lines',
                                      name=v['title']))
 
-    fig.update_layout(
-        autosize=False,
-        width=width,
-        height=height,
-    )
-
     if toImg:
-        fig.show(renderer="png")
+        fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
