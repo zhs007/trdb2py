@@ -87,5 +87,7 @@ for day in range(0, 4):
             title='{}持有{}天down'.format(lsttitle[i], day+1)
         ))
 
-lstpnlaip = trdb2py.simTradings(cfg, lstparams)
-print(lstpnlaip)
+lstpnlaip = trdb2py.simTradings(cfg, lstparams, ignoreTotalReturn=1.0)
+# print(lstpnlaip)
+df = trdb2py.buildPNLReport(lstpnlaip)
+print(df[['title', 'totalReturns', 'values']])
