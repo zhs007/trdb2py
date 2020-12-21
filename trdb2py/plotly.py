@@ -4,7 +4,8 @@ import time
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-from trdb2py.statistics import buildPNLWinRateInYears, buildPNLListWinRateInYears2, buildPNLWinRateInMonths, buildPNLListWinRateInMonths2
+from trdb2py.statistics import (buildPNLWinRateInYears, buildPNLListWinRateInYears2,
+                                buildPNLWinRateInMonths, buildPNLListWinRateInMonths2, buildPNLListWinRate4Month)
 
 
 def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False, width=1024, height=768):
@@ -231,6 +232,33 @@ def showBarWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0,
     else:
         for v in arr:
             lst.append(go.Bar(x=v['df']['date'], y=v['df']['winrate'],
+                              name=v['title']))
+
+    fig = go.Figure(data=lst)
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
+def showBarWinRate4Month(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
+    arr = buildPNLListWinRate4Month(lstpnl)
+
+    lst = []
+
+    if valtype == 'abs':
+        for v in arr:
+
+            vals = []
+            for wrv in v['df']['winrate']:
+                vals.append(abs(wrv + valoff))
+
+            lst.append(go.Bar(x=v['df']['month'], y=vals,
+                              name=v['title']))
+    else:
+        for v in arr:
+            lst.append(go.Bar(x=v['df']['month'], y=v['df']['winrate'],
                               name=v['title']))
 
     fig = go.Figure(data=lst)

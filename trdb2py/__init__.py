@@ -6,8 +6,8 @@ from trdb2py.timeutils import str2timestamp
 from trdb2py.pdutils import buildPNLReport
 from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
                                 buildPNLWinRateInMonths, buildPNLListWinRateInYears2,
-                                buildPNLListWinRateInMonths2)
+                                buildPNLListWinRateInMonths2, buildPNLListWinRate4Month)
 from trdb2py.plotly import (showAssetCandles, showHeatmap, showHeatmapWinRateInYears,
                             showWinRateInYears, showHeatmapWinRateInMonths, showWinRateInMonths,
-                            showBarWinRateInMonths, showBarWinRateInYears, showPNL, showPNLs)
+                            showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month, showPNL, showPNLs)
 import trdb2py.trading2_pb2

@@ -128,6 +128,10 @@ def buildPNLWinRateInYears(lstpnl: list) -> tuple:
 
 
 def buildPNLWinRateInYears2(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataFrame:
+    '''
+    buildPNLWinRateInYears2 - 数据格式和buildPNLWinRateInYears不同，这个适用于line或bar
+    '''
+
     fv0 = {
         'date': [],
         'winrate': [],
@@ -284,6 +288,10 @@ def buildPNLWinRateInMonths(lstpnl: list) -> tuple:
 
 
 def buildPNLWinRateInMonths2(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataFrame:
+    '''
+    buildPNLWinRateInMonths2 - 数据格式和buildPNLWinRateInMonths不同，这个适用于line或bar
+    '''
+
     fv0 = {
         'date': [],
         'winrate': [],
@@ -322,6 +330,60 @@ def buildPNLListWinRateInMonths2(lstpnl: list) -> list:
 
     for v in lstpnl:
         df = buildPNLWinRateInMonths2(v['pnl'])
+        arr.append({'title': v['title'], 'df': df})
+
+    return arr
+
+
+def buildPNLWinRate4Month(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataFrame:
+    '''
+    buildPNLWinRate4Month - 跨年的月统计
+    '''
+
+    fv0 = {
+        'month': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        'winrate': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'nums': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'totalwinrate': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    }
+
+    sdt = datetime.fromtimestamp(pnl.values[0].ts)
+    edt = datetime.fromtimestamp(pnl.values[len(pnl.values) - 1].ts)
+
+    minyear = sdt.year
+    maxyear = edt.year
+    minmonth = sdt.month
+    maxmonth = edt.month
+
+    for y in range(minyear, maxyear + 1):
+        if y == minyear:
+            for m in range(minmonth, 12 + 1):
+                ret = calcPNLWinRateInYearMonth(pnl, y, m)
+                fv0['totalwinrate'][m-1] += ret['winrate']
+                fv0['nums'][m-1] += 1
+        elif y == maxyear:
+            for m in range(1, maxmonth + 1):
+                ret = calcPNLWinRateInYearMonth(pnl, y, m)
+                fv0['totalwinrate'][m-1] += ret['winrate']
+                fv0['nums'][m-1] += 1
+        else:
+            for m in range(1, 12 + 1):
+                ret = calcPNLWinRateInYearMonth(pnl, y, m)
+                fv0['totalwinrate'][m-1] += ret['winrate']
+                fv0['nums'][m-1] += 1
+
+    for i in range(0, 12):
+        if fv0['nums'][i] > 0:
+            fv0['winrate'][i] = fv0['totalwinrate'][i] / fv0['nums'][i]
+
+    return pd.DataFrame(fv0)
+
+
+def buildPNLListWinRate4Month(lstpnl: list) -> list:
+    arr = []
+
+    for v in lstpnl:
+        df = buildPNLWinRate4Month(v['pnl'])
         arr.append({'title': v['title'], 'df': df})
 
     return arr
