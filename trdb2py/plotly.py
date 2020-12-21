@@ -133,6 +133,33 @@ def showWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toI
         fig.show()
 
 
+def showBarWinRateInYears(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
+    arr = buildPNLListWinRateInYears2(lstpnl)
+
+    lst = []
+
+    if valtype == 'abs':
+        for v in arr:
+
+            vals = []
+            for wrv in v['df']['winrate']:
+                vals.append(abs(wrv + valoff))
+
+            lst.append(go.Bar(x=v['df']['date'], y=vals,
+                              name=v['title']))
+    else:
+        for v in arr:
+            lst.append(go.Bar(x=v['df']['date'], y=v['df']['winrate'],
+                              name=v['title']))
+
+    fig = go.Figure(data=lst)
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
 def showHeatmapWinRateInMonths(lstpnl: list, sortby: str = '', valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
     ret = buildPNLWinRateInMonths(lstpnl)
     columns = []
@@ -180,6 +207,33 @@ def showWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, to
             fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['winrate'],
                                      mode='lines',
                                      name=v['title']))
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
+def showBarWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0, toImg: bool = False, width=1024, height=768):
+    arr = buildPNLListWinRateInMonths2(lstpnl)
+
+    lst = []
+
+    if valtype == 'abs':
+        for v in arr:
+
+            vals = []
+            for wrv in v['df']['winrate']:
+                vals.append(abs(wrv + valoff))
+
+            lst.append(go.Bar(x=v['df']['date'], y=vals,
+                              name=v['title']))
+    else:
+        for v in arr:
+            lst.append(go.Bar(x=v['df']['date'], y=v['df']['winrate'],
+                              name=v['title']))
+
+    fig = go.Figure(data=lst)
 
     if toImg:
         fig.show(renderer="png", width=width, height=height)
