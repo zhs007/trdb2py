@@ -223,20 +223,6 @@ def showBarWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0,
     if month > 0 and month <= 12:
         if valtype == 'abs':
             for v in arr:
-
-                vals = []
-                for wrv in v['df']['winrate']:
-                    vals.append(abs(wrv + valoff))
-
-                lst.append(go.Bar(x=v['df']['date'], y=vals,
-                                  name=v['title']))
-        else:
-            for v in arr:
-                lst.append(go.Bar(x=v['df']['date'], y=v['df']['winrate'],
-                                  name=v['title']))
-    else:
-        if valtype == 'abs':
-            for v in arr:
                 lstdate = []
                 vals = []
                 for i in range(0, len(v['df']['winrate'])):
@@ -256,6 +242,20 @@ def showBarWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0,
                         lstdate.append(v['df']['date'][i])
 
                 lst.append(go.Bar(x=lstdate, y=vals,
+                                  name=v['title']))
+    else:
+        if valtype == 'abs':
+            for v in arr:
+
+                vals = []
+                for wrv in v['df']['winrate']:
+                    vals.append(abs(wrv + valoff))
+
+                lst.append(go.Bar(x=v['df']['date'], y=vals,
+                                  name=v['title']))
+        else:
+            for v in arr:
+                lst.append(go.Bar(x=v['df']['date'], y=v['df']['winrate'],
                                   name=v['title']))
 
     fig = go.Figure(data=lst)
