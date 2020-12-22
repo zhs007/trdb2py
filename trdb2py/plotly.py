@@ -239,7 +239,7 @@ def showBarWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0,
             for v in arr:
                 lstdate = []
                 vals = []
-                for i in range(v['df']['winrate']):
+                for i in range(0, len(v['df']['winrate'])):
                     if v['df']['month'][i] == month:
                         vals.append(abs(v['df']['winrate'][i] + valoff))
                         lstdate.append(v['df']['date'][i])
@@ -250,7 +250,7 @@ def showBarWinRateInMonths(lstpnl: list, valtype: str = '', valoff: float = 0.0,
             for v in arr:
                 lstdate = []
                 vals = []
-                for i in range(v['df']['winrate']):
+                for i in range(0, len(v['df']['winrate'])):
                     if v['df']['month'][i] == month:
                         vals.append(v['df']['winrate'][i])
                         lstdate.append(v['df']['date'][i])
