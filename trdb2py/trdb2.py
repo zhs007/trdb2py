@@ -75,6 +75,7 @@ def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: 
             token=cfg['token'],
         ),
         params=params,
+        ignoreCache=ignoreCache,
     ))
 
     if len(response.pnl) > 0:
