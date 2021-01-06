@@ -42,7 +42,8 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
     fig = go.Figure()
 
     if showNums > 0:
-        lstpnl = lstpnl.sort_values(by='totalReturns', ascending=False)
+        lstpnl = sorted(
+            lstpnl, key=lambda curpnl: curpnl['pnl'].totalReturns, reverse=True)
         curnums = 0
 
         for pnl in lstpnl:
@@ -83,6 +84,75 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
             fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
                                      mode='lines',
                                      name=pnl['title']))
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
+def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', showNums: int = -1, toImg: bool = False, width=1024, height=768):
+    fig = go.Figure()
+
+    if showNums > 0:
+        lstpnl = sorted(
+            lstpnl, key=lambda curpnl: curpnl['pnl'].totalReturns, reverse=True)
+        curnums = 0
+
+        for pnl in lstpnl:
+            fv0 = {'date': [], 'value': []}
+            for v in pnl['pnl'].values:
+                fv0['date'].append(datetime.fromtimestamp(
+                    v.ts).strftime(dtFormat))
+
+                if isPerValue:
+                    fv0['value'].append(v.perValue)
+                else:
+                    fv0['value'].append(v.value - v.cost)
+
+            df = pd.DataFrame(fv0)
+
+            fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
+                                     mode='lines',
+                                     name=pnl['title']))
+
+            curnums += 1
+
+            if curnums >= showNums:
+                break
+    else:
+        for pnl in lstpnl:
+            fv0 = {'date': [], 'value': []}
+            for v in pnl['pnl'].values:
+                fv0['date'].append(datetime.fromtimestamp(
+                    v.ts).strftime(dtFormat))
+
+                if isPerValue:
+                    fv0['value'].append(v.perValue)
+                else:
+                    fv0['value'].append(v.value - v.cost)
+
+            df = pd.DataFrame(fv0)
+
+            fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
+                                     mode='lines',
+                                     name=pnl['title']))
+
+    if baseline != None:
+        fv0 = {'date': [], 'value': []}
+        for v in baseline['pnl'].values:
+            fv0['date'].append(datetime.fromtimestamp(v.ts).strftime(dtFormat))
+
+            if isPerValue:
+                fv0['value'].append(v.perValue)
+            else:
+                fv0['value'].append(v.value - v.cost)
+
+        df = pd.DataFrame(fv0)
+
+        fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
+                                 mode='lines',
+                                 name=baseline['title']))
 
     if toImg:
         fig.show(renderer="png", width=width, height=height)

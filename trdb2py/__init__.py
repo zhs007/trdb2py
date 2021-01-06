@@ -9,5 +9,5 @@ from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
                                 buildPNLListWinRateInMonths2, buildPNLListWinRate4Month)
 from trdb2py.plotly import (showAssetCandles, showHeatmap, showHeatmapWinRateInYears,
                             showWinRateInYears, showHeatmapWinRateInMonths, showWinRateInMonths,
-                            showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month, showPNL, showPNLs)
+                            showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month, showPNL, showPNLs, showPNLs2)
 import trdb2py.trading2_pb2
