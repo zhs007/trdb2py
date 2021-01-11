@@ -10,4 +10,5 @@ from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
 from trdb2py.plotly import (showAssetCandles, showHeatmap, showHeatmapWinRateInYears,
                             showWinRateInYears, showHeatmapWinRateInMonths, showWinRateInMonths,
                             showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month, showPNL, showPNLs, showPNLs2)
+from trdb2py.trdb2utils import analysisResult
 import trdb2py.trading2_pb2
