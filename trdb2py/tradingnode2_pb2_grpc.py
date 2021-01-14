@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import trdb2py.tradingnode2_pb2 as tradingnode2__pb2
+import tradingnode2_pb2 as tradingnode2__pb2
 
 
 class TradingNode2Stub(object):

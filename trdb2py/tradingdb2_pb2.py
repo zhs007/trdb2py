@@ -11,7 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import trdb2py.trading2_pb2 as trading2__pb2
+import trading2_pb2 as trading2__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z&github.com/zhs007/tradingdb2/tradingpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10tradingdb2.proto\x12\ttradingpb\x1a\x0etrading2.proto\"\xe3\x01\n\x06\x43\x61ndle\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0c\n\x04open\x18\x02 \x01(\x03\x12\r\n\x05\x63lose\x18\x03 \x01(\x03\x12\x0c\n\x04high\x18\x04 \x01(\x03\x12\x0b\n\x03low\x18\x05 \x01(\x03\x12\x0e\n\x06volume\x18\x06 \x01(\x03\x12\x14\n\x0copenInterest\x18\x07 \x01(\x03\x12\x0e\n\x06trades\x18\x08 \x01(\x03\x12\x0c\n\x04vwap\x18\t \x01(\x01\x12\x10\n\x08lastSize\x18\n \x01(\x03\x12\x10\n\x08turnover\x18\x0b \x01(\x03\x12\x14\n\x0chomeNotional\x18\x0c \x01(\x01\x12\x17\n\x0f\x66oreignNotional\x18\r \x01(\x01\"Z\n\x07\x43\x61ndles\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0b\n\x03tag\x18\x03 \x01(\t\x12\"\n\x07\x63\x61ndles\x18\x04 \x03(\x0b\x32\x11.tradingpb.Candle\"&\n\x08\x46undSize\x12\x0c\n\x04size\x18\x01 \x01(\x02\x12\x0c\n\x04time\x18\x02 \x01(\x03\"\xbb\x01\n\x0b\x46undManager\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tstartTime\x18\x02 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x03 \x01(\x03\x12\x11\n\tbirthYear\x18\x04 \x01(\x03\x12\x0b\n\x03sex\x18\x05 \x01(\x08\x12\x11\n\teducation\x18\x06 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x07 \x01(\t\x12\x0e\n\x06resume\x18\x08 \x01(\t\x12&\n\x07results\x18\t \x03(\x0b\x32\x15.tradingpb.FundResult\"\xb2\x01\n\nFundResult\x12\x13\n\x0bmaxDrawdown\x18\x01 \x01(\x02\x12\x0e\n\x06sharpe\x18\x02 \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\x03 \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x04 \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x05 \x01(\x02\x12\x11\n\tstartTime\x18\x06 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x07 \x01(\x03\x12\x0c\n\x04name\x18\x08 \x01(\t\"\xca\x01\n\x04\x46und\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x12\n\ncreateTime\x18\x04 \x01(\x03\x12!\n\x04size\x18\x05 \x03(\x0b\x32\x13.tradingpb.FundSize\x12\x0f\n\x07\x63ompany\x18\x06 \x01(\t\x12(\n\x08managers\x18\x07 \x03(\x0b\x32\x16.tradingpb.FundManager\x12&\n\x07results\x18\x08 \x03(\x0b\x32\x15.tradingpb.FundResult\"K\n\nSymbolInfo\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x1d\n\x04\x66und\x18\x03 \x01(\x0b\x32\x0f.tradingpb.Fund\"~\n\x11RequestUpdCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12#\n\x07\x63\x61ndles\x18\x02 \x01(\x0b\x32\x12.tradingpb.Candles\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"#\n\x0fReplyUpdCandles\x12\x10\n\x08lengthOK\x18\x01 \x01(\x05\"\xb8\x01\n\x11RequestGetCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0f\n\x03tag\x18\x04 \x01(\tB\x02\x18\x01\x12\x0f\n\x07tsStart\x18\x05 \x01(\x03\x12\r\n\x05tsEnd\x18\x06 \x01(\x03\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x08 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"6\n\x0fReplyGetCandles\x12#\n\x07\x63\x61ndles\x18\x01 \x01(\x0b\x32\x12.tradingpb.Candles\"\x7f\n\x10RequestUpdSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12%\n\x06symbol\x18\x02 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\x1e\n\x0eReplyUpdSymbol\x12\x0c\n\x04isOK\x18\x01 \x01(\x08\"x\n\x10RequestGetSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"7\n\x0eReplyGetSymbol\x12%\n\x06symbol\x18\x01 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\"z\n\x11RequestGetSymbols\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\xb2\x01\n\x11RequestSimTrading\x12\x31\n\x0c\x62\x61sicRequest\x18\x01 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12+\n\x06params\x18\x02 \x01(\x0b\x32\x1b.tradingpb.SimTradingParams\x12\x13\n\x0bignoreCache\x18\x03 \x01(\x08\x12\r\n\x05index\x18\x04 \x01(\x05\x12\x19\n\x11ignoreTotalReturn\x18\x05 \x01(\x02\"k\n\x0fReplySimTrading\x12\x1f\n\x03pnl\x18\x01 \x03(\x0b\x32\x12.tradingpb.PNLData\x12(\n\x08\x62\x61seline\x18\x02 \x03(\x0b\x32\x12.tradingpb.PNLDataB\x02\x18\x01\x12\r\n\x05index\x18\x03 \x01(\x05\x32\x96\x04\n\nTradingDB2\x12J\n\nupdCandles\x12\x1c.tradingpb.RequestUpdCandles\x1a\x1a.tradingpb.ReplyUpdCandles\"\x00(\x01\x12J\n\ngetCandles\x12\x1c.tradingpb.RequestGetCandles\x1a\x1a.tradingpb.ReplyGetCandles\"\x00\x30\x01\x12\x45\n\tupdSymbol\x12\x1b.tradingpb.RequestUpdSymbol\x1a\x19.tradingpb.ReplyUpdSymbol\"\x00\x12\x45\n\tgetSymbol\x12\x1b.tradingpb.RequestGetSymbol\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x12I\n\ngetSymbols\x12\x1c.tradingpb.RequestGetSymbols\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x30\x01\x12H\n\nsimTrading\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00\x12M\n\x0bsimTrading2\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00(\x01\x30\x01\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
+  serialized_pb=b'\n\x10tradingdb2.proto\x12\ttradingpb\x1a\x0etrading2.proto\"\xcb\x02\n\x06\x43\x61ndle\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0c\n\x04open\x18\x02 \x01(\x03\x12\r\n\x05\x63lose\x18\x03 \x01(\x03\x12\x0c\n\x04high\x18\x04 \x01(\x03\x12\x0b\n\x03low\x18\x05 \x01(\x03\x12\x0e\n\x06volume\x18\x06 \x01(\x03\x12\x14\n\x0copenInterest\x18\x07 \x01(\x03\x12\x0e\n\x06trades\x18\x08 \x01(\x03\x12\x0c\n\x04vwap\x18\t \x01(\x01\x12\x10\n\x08lastSize\x18\n \x01(\x03\x12\x10\n\x08turnover\x18\x0b \x01(\x03\x12\x14\n\x0chomeNotional\x18\x0c \x01(\x01\x12\x17\n\x0f\x66oreignNotional\x18\r \x01(\x01\x12\x12\n\ntotalMoney\x18\x0e \x01(\x03\x12\x0e\n\x06paused\x18\x0f \x01(\x08\x12\x11\n\thighLimit\x18\x10 \x01(\x03\x12\x10\n\x08lowLimit\x18\x11 \x01(\x03\x12\x0b\n\x03\x61vg\x18\x12 \x01(\x03\x12\x10\n\x08preClose\x18\x13 \x01(\x03\"\xd8\x01\n\x07\x43\x61ndles\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0b\n\x03tag\x18\x03 \x01(\t\x12\"\n\x07\x63\x61ndles\x18\x04 \x03(\x0b\x32\x11.tradingpb.Candle\x12\x36\n\nmapCandles\x18\x05 \x03(\x0b\x32\".tradingpb.Candles.MapCandlesEntry\x1a\x44\n\x0fMapCandlesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12 \n\x05value\x18\x02 \x01(\x0b\x32\x11.tradingpb.Candle:\x02\x38\x01\"&\n\x08\x46undSize\x12\x0c\n\x04size\x18\x01 \x01(\x02\x12\x0c\n\x04time\x18\x02 \x01(\x03\"\xbb\x01\n\x0b\x46undManager\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tstartTime\x18\x02 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x03 \x01(\x03\x12\x11\n\tbirthYear\x18\x04 \x01(\x03\x12\x0b\n\x03sex\x18\x05 \x01(\x08\x12\x11\n\teducation\x18\x06 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x07 \x01(\t\x12\x0e\n\x06resume\x18\x08 \x01(\t\x12&\n\x07results\x18\t \x03(\x0b\x32\x15.tradingpb.FundResult\"\xb2\x01\n\nFundResult\x12\x13\n\x0bmaxDrawdown\x18\x01 \x01(\x02\x12\x0e\n\x06sharpe\x18\x02 \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\x03 \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x04 \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x05 \x01(\x02\x12\x11\n\tstartTime\x18\x06 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x07 \x01(\x03\x12\x0c\n\x04name\x18\x08 \x01(\t\"\xca\x01\n\x04\x46und\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x12\n\ncreateTime\x18\x04 \x01(\x03\x12!\n\x04size\x18\x05 \x03(\x0b\x32\x13.tradingpb.FundSize\x12\x0f\n\x07\x63ompany\x18\x06 \x01(\t\x12(\n\x08managers\x18\x07 \x03(\x0b\x32\x16.tradingpb.FundManager\x12&\n\x07results\x18\x08 \x03(\x0b\x32\x15.tradingpb.FundResult\"y\n\nSymbolInfo\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x1d\n\x04\x66und\x18\x03 \x01(\x0b\x32\x0f.tradingpb.Fund\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\x10\n\x08\x66ullname\x18\x05 \x01(\t\x12\x0c\n\x04type\x18\x06 \x01(\t\"~\n\x11RequestUpdCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12#\n\x07\x63\x61ndles\x18\x02 \x01(\x0b\x32\x12.tradingpb.Candles\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"#\n\x0fReplyUpdCandles\x12\x10\n\x08lengthOK\x18\x01 \x01(\x05\"\xb8\x01\n\x11RequestGetCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0f\n\x03tag\x18\x04 \x01(\tB\x02\x18\x01\x12\x0f\n\x07tsStart\x18\x05 \x01(\x03\x12\r\n\x05tsEnd\x18\x06 \x01(\x03\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x08 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"6\n\x0fReplyGetCandles\x12#\n\x07\x63\x61ndles\x18\x01 \x01(\x0b\x32\x12.tradingpb.Candles\"\x7f\n\x10RequestUpdSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12%\n\x06symbol\x18\x02 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\x1e\n\x0eReplyUpdSymbol\x12\x0c\n\x04isOK\x18\x01 \x01(\x08\"x\n\x10RequestGetSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"7\n\x0eReplyGetSymbol\x12%\n\x06symbol\x18\x01 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\"z\n\x11RequestGetSymbols\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\xe8\x01\n\x11RequestSimTrading\x12\x31\n\x0c\x62\x61sicRequest\x18\x01 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12+\n\x06params\x18\x02 \x01(\x0b\x32\x1b.tradingpb.SimTradingParams\x12\x13\n\x0bignoreCache\x18\x03 \x01(\x08\x12\r\n\x05index\x18\x04 \x01(\x05\x12\x19\n\x11ignoreTotalReturn\x18\x05 \x01(\x02\x12\x0f\n\x07minNums\x18\x06 \x01(\x05\x12\x13\n\x07maxNums\x18\x07 \x01(\x05\x42\x02\x18\x01\x12\x0e\n\x06sortBy\x18\x08 \x01(\t\"k\n\x0fReplySimTrading\x12\x1f\n\x03pnl\x18\x01 \x03(\x0b\x32\x12.tradingpb.PNLData\x12(\n\x08\x62\x61seline\x18\x02 \x03(\x0b\x32\x12.tradingpb.PNLDataB\x02\x18\x01\x12\r\n\x05index\x18\x03 \x01(\x05\x32\x96\x04\n\nTradingDB2\x12J\n\nupdCandles\x12\x1c.tradingpb.RequestUpdCandles\x1a\x1a.tradingpb.ReplyUpdCandles\"\x00(\x01\x12J\n\ngetCandles\x12\x1c.tradingpb.RequestGetCandles\x1a\x1a.tradingpb.ReplyGetCandles\"\x00\x30\x01\x12\x45\n\tupdSymbol\x12\x1b.tradingpb.RequestUpdSymbol\x1a\x19.tradingpb.ReplyUpdSymbol\"\x00\x12\x45\n\tgetSymbol\x12\x1b.tradingpb.RequestGetSymbol\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x12I\n\ngetSymbols\x12\x1c.tradingpb.RequestGetSymbols\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x30\x01\x12H\n\nsimTrading\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00\x12M\n\x0bsimTrading2\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00(\x01\x30\x01\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
   ,
   dependencies=[trading2__pb2.DESCRIPTOR,])
 
@@ -126,6 +126,48 @@ _CANDLE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='totalMoney', full_name='tradingpb.Candle.totalMoney', index=13,
+      number=14, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paused', full_name='tradingpb.Candle.paused', index=14,
+      number=15, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='highLimit', full_name='tradingpb.Candle.highLimit', index=15,
+      number=16, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='lowLimit', full_name='tradingpb.Candle.lowLimit', index=16,
+      number=17, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='avg', full_name='tradingpb.Candle.avg', index=17,
+      number=18, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='preClose', full_name='tradingpb.Candle.preClose', index=18,
+      number=19, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -139,9 +181,47 @@ _CANDLE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=48,
-  serialized_end=275,
+  serialized_end=379,
 )
 
+
+_CANDLES_MAPCANDLESENTRY = _descriptor.Descriptor(
+  name='MapCandlesEntry',
+  full_name='tradingpb.Candles.MapCandlesEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='tradingpb.Candles.MapCandlesEntry.key', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='tradingpb.Candles.MapCandlesEntry.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=530,
+  serialized_end=598,
+)
 
 _CANDLES = _descriptor.Descriptor(
   name='Candles',
@@ -179,10 +259,17 @@ _CANDLES = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='mapCandles', full_name='tradingpb.Candles.mapCandles', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_CANDLES_MAPCANDLESENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -191,8 +278,8 @@ _CANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=277,
-  serialized_end=367,
+  serialized_start=382,
+  serialized_end=598,
 )
 
 
@@ -230,8 +317,8 @@ _FUNDSIZE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=369,
-  serialized_end=407,
+  serialized_start=600,
+  serialized_end=638,
 )
 
 
@@ -318,8 +405,8 @@ _FUNDMANAGER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=410,
-  serialized_end=597,
+  serialized_start=641,
+  serialized_end=828,
 )
 
 
@@ -399,8 +486,8 @@ _FUNDRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=600,
-  serialized_end=778,
+  serialized_start=831,
+  serialized_end=1009,
 )
 
 
@@ -480,8 +567,8 @@ _FUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=781,
-  serialized_end=983,
+  serialized_start=1012,
+  serialized_end=1214,
 )
 
 
@@ -514,6 +601,27 @@ _SYMBOLINFO = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='tradingpb.SymbolInfo.name', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fullname', full_name='tradingpb.SymbolInfo.fullname', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='tradingpb.SymbolInfo.type', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -526,8 +634,8 @@ _SYMBOLINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=985,
-  serialized_end=1060,
+  serialized_start=1216,
+  serialized_end=1337,
 )
 
 
@@ -572,8 +680,8 @@ _REQUESTUPDCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1062,
-  serialized_end=1188,
+  serialized_start=1339,
+  serialized_end=1465,
 )
 
 
@@ -604,8 +712,8 @@ _REPLYUPDCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1190,
-  serialized_end=1225,
+  serialized_start=1467,
+  serialized_end=1502,
 )
 
 
@@ -685,8 +793,8 @@ _REQUESTGETCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1228,
-  serialized_end=1412,
+  serialized_start=1505,
+  serialized_end=1689,
 )
 
 
@@ -717,8 +825,8 @@ _REPLYGETCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1414,
-  serialized_end=1468,
+  serialized_start=1691,
+  serialized_end=1745,
 )
 
 
@@ -763,8 +871,8 @@ _REQUESTUPDSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1470,
-  serialized_end=1597,
+  serialized_start=1747,
+  serialized_end=1874,
 )
 
 
@@ -795,8 +903,8 @@ _REPLYUPDSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1599,
-  serialized_end=1629,
+  serialized_start=1876,
+  serialized_end=1906,
 )
 
 
@@ -848,8 +956,8 @@ _REQUESTGETSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1631,
-  serialized_end=1751,
+  serialized_start=1908,
+  serialized_end=2028,
 )
 
 
@@ -880,8 +988,8 @@ _REPLYGETSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1753,
-  serialized_end=1808,
+  serialized_start=2030,
+  serialized_end=2085,
 )
 
 
@@ -933,8 +1041,8 @@ _REQUESTGETSYMBOLS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1810,
-  serialized_end=1932,
+  serialized_start=2087,
+  serialized_end=2209,
 )
 
 
@@ -981,6 +1089,27 @@ _REQUESTSIMTRADING = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='minNums', full_name='tradingpb.RequestSimTrading.minNums', index=5,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='maxNums', full_name='tradingpb.RequestSimTrading.maxNums', index=6,
+      number=7, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sortBy', full_name='tradingpb.RequestSimTrading.sortBy', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -993,8 +1122,8 @@ _REQUESTSIMTRADING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1935,
-  serialized_end=2113,
+  serialized_start=2212,
+  serialized_end=2444,
 )
 
 
@@ -1039,11 +1168,14 @@ _REPLYSIMTRADING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2115,
-  serialized_end=2222,
+  serialized_start=2446,
+  serialized_end=2553,
 )
 
+_CANDLES_MAPCANDLESENTRY.fields_by_name['value'].message_type = _CANDLE
+_CANDLES_MAPCANDLESENTRY.containing_type = _CANDLES
 _CANDLES.fields_by_name['candles'].message_type = _CANDLE
+_CANDLES.fields_by_name['mapCandles'].message_type = _CANDLES_MAPCANDLESENTRY
 _FUNDMANAGER.fields_by_name['results'].message_type = _FUNDRESULT
 _FUND.fields_by_name['size'].message_type = _FUNDSIZE
 _FUND.fields_by_name['managers'].message_type = _FUNDMANAGER
@@ -1090,11 +1222,19 @@ Candle = _reflection.GeneratedProtocolMessageType('Candle', (_message.Message,),
 _sym_db.RegisterMessage(Candle)
 
 Candles = _reflection.GeneratedProtocolMessageType('Candles', (_message.Message,), {
+
+  'MapCandlesEntry' : _reflection.GeneratedProtocolMessageType('MapCandlesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CANDLES_MAPCANDLESENTRY,
+    '__module__' : 'tradingdb2_pb2'
+    # @@protoc_insertion_point(class_scope:tradingpb.Candles.MapCandlesEntry)
+    })
+  ,
   'DESCRIPTOR' : _CANDLES,
   '__module__' : 'tradingdb2_pb2'
   # @@protoc_insertion_point(class_scope:tradingpb.Candles)
   })
 _sym_db.RegisterMessage(Candles)
+_sym_db.RegisterMessage(Candles.MapCandlesEntry)
 
 FundSize = _reflection.GeneratedProtocolMessageType('FundSize', (_message.Message,), {
   'DESCRIPTOR' : _FUNDSIZE,
@@ -1210,12 +1350,14 @@ _sym_db.RegisterMessage(ReplySimTrading)
 
 
 DESCRIPTOR._options = None
+_CANDLES_MAPCANDLESENTRY._options = None
 _REQUESTUPDCANDLES.fields_by_name['token']._options = None
 _REQUESTGETCANDLES.fields_by_name['token']._options = None
 _REQUESTGETCANDLES.fields_by_name['tag']._options = None
 _REQUESTUPDSYMBOL.fields_by_name['token']._options = None
 _REQUESTGETSYMBOL.fields_by_name['token']._options = None
 _REQUESTGETSYMBOLS.fields_by_name['token']._options = None
+_REQUESTSIMTRADING.fields_by_name['maxNums']._options = None
 _REPLYSIMTRADING.fields_by_name['baseline']._options = None
 
 _TRADINGDB2 = _descriptor.ServiceDescriptor(
@@ -1225,8 +1367,8 @@ _TRADINGDB2 = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2225,
-  serialized_end=2759,
+  serialized_start=2556,
+  serialized_end=3090,
   methods=[
   _descriptor.MethodDescriptor(
     name='updCandles',

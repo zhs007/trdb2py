@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import trdb2py.tradingdb2_pb2 as tradingdb2__pb2
+import tradingdb2_pb2 as tradingdb2__pb2
 
 
 class TradingDB2Stub(object):
@@ -58,6 +58,7 @@ class TradingDB2Servicer(object):
 
     def updCandles(self, request_iterator, context):
         """updCandles - update candles
+        这个接口现在是覆盖的，不会和原有数据做任何合并操作
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

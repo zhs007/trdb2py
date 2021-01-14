@@ -24,6 +24,12 @@ enum CtrlType {
     CTRL_DEPOSIT = 6;
 }
 
+// CtrlNodeAssetInfo - asset infomation in control node
+message CtrlNodeAssetInfo {
+    double volume = 1;
+    double cost = 2;
+}
+
 // CtrlNode - ctrl node
 message CtrlNode {
     int64 ts = 1;
@@ -35,8 +41,11 @@ message CtrlNode {
     double fee = 7;
     double averageHoldingPrice = 8;
     double sellPrice = 9;
-    int32 ctrlConditionID = 10;             // 用于多条件时，标记条件ID，条件ID是条件index + 1，0是无效值
-    int32 strategyID = 11;                  // 用于多策略时，标记策略ID，策略ID是策略index + 1，0是无效值
+    int32 ctrlConditionID = 10;                             // 用于多条件时，标记条件ID，条件ID是条件index + 1，0是无效值
+    int32 strategyID = 11;                                  // 用于多策略时，标记策略ID，策略ID是策略index + 1，0是无效值
+    double totalMoney = 12;                                 // 统计值，用于运算，当前时间节点总投入货币
+    double lastMoney = 13;                                  // 统计值，用于运算，当前时间节点剩余未投入货币
+    map<string, CtrlNodeAssetInfo> mapAssetsInfo = 14;      // 统计值，用于运算，当前时间节点资产数量和成本
 }
 
 // WalletAsset - wallet asset
@@ -130,6 +139,13 @@ message AIPParams {
     int32 day = 3;
 }
 
+// FeeParams - parameters for fee
+message FeeParams {
+    float percentage = 1;       // 百分比
+    float minLimit = 2;         // 最小的额度，低于这个也要支付这么多
+    float maxLimit = 3;         // 最大的额度，高于这个也只需要支付这么多
+}
+
 // Strategy - strategy
 message Strategy {
     string name = 1;                            // strategy名，需要是服务器已经有实现的
@@ -146,6 +162,8 @@ message Strategy {
     AIPParams paramsAIP = 12;                   // 定投参数
     string title = 13 [deprecated = true];      // 弃用了，title主要用途是能和返回的PNLData对应上，这里没办法一一对应
     repeated string indicators = 14;            // 需要得到的indicators数据
+    FeeParams feeBuy = 15;                      // 买入的fee
+    FeeParams feeSell = 16;                     // 卖出的fee
 }
 
 // PNLDataValue - 
