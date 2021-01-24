@@ -24,7 +24,7 @@ def nextWeekDay(cday: int, offday: int, startday: int = 1, endday: int = 5) -> i
     offday = offday % 7
 
     if cday + offday > endday:
-        cday += offday + 2
+        cday += offday + (6 - endday) + (startday - 0)
     else:
         cday += offday
 
