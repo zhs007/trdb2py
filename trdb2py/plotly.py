@@ -5,7 +5,8 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from trdb2py.statistics import (buildPNLWinRateInYears, buildPNLListWinRateInYears2,
-                                buildPNLWinRateInMonths, buildPNLListWinRateInMonths2, buildPNLListWinRate4Month)
+                                buildPNLWinRateInMonths, buildPNLListWinRateInMonths2, buildPNLListWinRate4Month,
+                                buildPNLListResponseRateInYears2)
 
 
 def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close', toImg: bool = False, width=1024, height=768):
@@ -380,6 +381,23 @@ def showBarWinRate4Month(lstpnl: list, valtype: str = '', valoff: float = 0.0, t
         for v in arr:
             lst.append(go.Bar(x=v['df']['month'], y=v['df']['winrate'],
                               name=v['title']))
+
+    fig = go.Figure(data=lst)
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
+def showBarResponseRateInYears(lstpnl: list, toImg: bool = False, width=1024, height=768):
+    arr = buildPNLListResponseRateInYears2(lstpnl)
+
+    lst = []
+
+    for v in arr:
+        lst.append(go.Bar(x=v['df']['date'], y=v['df']['responserate'],
+                          name=v['title']))
 
     fig = go.Figure(data=lst)
 

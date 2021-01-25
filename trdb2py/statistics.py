@@ -391,3 +391,97 @@ def buildPNLListWinRate4Month(lstpnl: list) -> list:
         arr.append({'title': v['title'], 'df': df})
 
     return arr
+
+
+def calcPNLResponseRateInYear(pnl: trdb2py.trading2_pb2.PNLAssetData, year: int = -1) -> dict:
+    openv = -1
+    closev = 0
+    highv = 0
+    lowv = 0
+
+    if year == -1:
+        for i in range(len(pnl.values)):
+            if i == 0:
+                openv = pnl.values[i].perValue
+                highv = pnl.values[i].perValue
+                lowv = pnl.values[i].perValue
+                closev = pnl.values[i].perValue
+
+            if i == len(pnl.values) - 1:
+                closev = pnl.values[i].perValue
+
+            if pnl.values[i].perValue > highv:
+                highv = pnl.values[i].perValue
+
+            if pnl.values[i].perValue < lowv:
+                lowv = pnl.values[i].perValue
+
+        ret = {'open': openv, 'close': closev,
+               'high': highv, 'low': lowv, 'responserate': 0}
+
+        if openv != 0:
+            ret['responserate'] = closev / openv
+
+        return ret
+
+    for i in range(len(pnl.values)):
+        v = pnl.values[i]
+
+        dt = datetime.fromtimestamp(v.ts)
+        if dt.year == year:
+            if openv == -1:
+                openv = pnl.values[i].perValue
+                highv = pnl.values[i].perValue
+                lowv = pnl.values[i].perValue
+                closev = pnl.values[i].perValue
+            else:
+                closev = pnl.values[i].perValue
+
+                if pnl.values[i].perValue > highv:
+                    highv = pnl.values[i].perValue
+
+                if pnl.values[i].perValue < lowv:
+                    lowv = pnl.values[i].perValue
+
+    ret = {'open': openv, 'close': closev,
+           'high': highv, 'low': lowv, 'responserate': 0}
+
+    if openv != 0:
+        ret['responserate'] = closev / openv
+
+    return ret
+
+
+def buildPNLResponseRateInYears2(pnl: trdb2py.trading2_pb2.PNLAssetData) -> pd.DataFrame:
+    '''
+    buildPNLResponseRateInYears2 - 对应 buildPNLWinRateInYears2 的回报率数据
+    '''
+
+    fv0 = {
+        'date': [],
+        'responserate': [],
+    }
+
+    sdt = datetime.fromtimestamp(pnl.values[0].ts)
+    edt = datetime.fromtimestamp(pnl.values[len(pnl.values) - 1].ts)
+
+    minyear = sdt.year
+    maxyear = edt.year
+
+    for y in range(minyear, maxyear + 1):
+        fv0['date'].append(y)
+
+        ret = calcPNLResponseRateInYear(pnl, y)
+        fv0['responserate'].append(ret['responserate'])
+
+    return pd.DataFrame(fv0)
+
+
+def buildPNLListResponseRateInYears2(lstpnl: list) -> list:
+    arr = []
+
+    for v in lstpnl:
+        df = buildPNLResponseRateInYears2(v['pnl'])
+        arr.append({'title': v['title'], 'df': df})
+
+    return arr
