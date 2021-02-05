@@ -4,6 +4,7 @@ import trdb2py.trading2_pb2
 import trdb2py.tradingdb2_pb2
 import trdb2py.tradingdb2_pb2_grpc
 from trdb2py.utils import str2asset
+from trdb2py.trdb2utils import getIndicatorInResult
 from datetime import datetime
 import time
 import pandas as pd
@@ -83,3 +84,52 @@ def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: 
         return {'title': pnl.title, 'pnl': pnl.total}
 
     return None
+
+
+def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', scale: float = 10000.0, indicators: slice = None, ignoreCache: bool = False) -> dict:
+    df = getAssetCandles(cfg, asset, tsStart, tsEnd, dtFormat, scale)
+
+    ret = {
+        'candle': df,
+    }
+
+    if indicators != None:
+        s0 = trdb2py.trading2_pb2.Strategy(
+            name="normal",
+            asset=str2asset(asset),
+        )
+
+        buy0 = trdb2py.trading2_pb2.CtrlCondition(
+            name='buyandhold',
+        )
+
+        paramsbuy = trdb2py.trading2_pb2.BuyParams(
+            perHandMoney=1,
+        )
+
+        paramsinit = trdb2py.trading2_pb2.InitParams(
+            money=10000,
+        )
+
+        s0.buy.extend([buy0])
+        s0.paramsBuy.CopyFrom(paramsbuy)
+        s0.paramsInit.CopyFrom(paramsinit)
+
+        p0 = trdb2py.trading2_pb2.SimTradingParams(
+            assets=[str2asset(asset)],
+            startTs=tsStart,
+            endTs=tsEnd,
+            strategies=[s0],
+            title='buyandhold',
+            indicators=indicators,
+        )
+
+        ret1 = simTrading(cfg, p0, ignoreCache)
+        print(ret1)
+        if ret1 != None:
+            for v in indicators:
+                idf = getIndicatorInResult(ret1, v, dtFormat)
+                if idf != None:
+                    ret[v] = idf
+
+    return ret

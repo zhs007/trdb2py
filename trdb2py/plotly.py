@@ -405,3 +405,23 @@ def showBarResponseRateInYears(lstpnl: list, toImg: bool = False, width=1024, he
         fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
+
+
+def showAssetCandles2(title: str, candles2: dict, indicators: slice = None, columm: str = 'close', toImg: bool = False, width=1024, height=768):
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(x=candles2['candle']['date'], y=candles2['candle'][columm],
+                             mode='lines',
+                             name=title))
+
+    if indicators != None:
+        for v in indicators:
+            if candles2[v] != None:
+                fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
+                                         mode='lines',
+                                         name=title))
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()

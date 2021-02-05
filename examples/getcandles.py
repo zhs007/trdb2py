@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+import sys 
+sys.path.append("..")
 import trdb2py
 
 cfg = trdb2py.loadConfig('./config.yaml')
