@@ -49,7 +49,7 @@ def getIndicatorInResult(result: dict, indicatorName: str, dtFormat: str = '%Y-%
                 }
 
                 for cd in v.data:
-                    fv0['val'].append([cd.vals[0]])
+                    fv0['val'].append(cd.vals[0])
                     fv0['date'].append(datetime.fromtimestamp(
                         cd.ts).strftime(dtFormat))
 

@@ -136,7 +136,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
         if ret1 != None:
             for v in indicators:
                 idf = getIndicatorInResult(ret1, v, dtFormat)
-                if idf.empty:
+                if not idf.empty:
                     ret[v] = idf
 
     return ret
