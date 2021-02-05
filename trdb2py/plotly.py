@@ -416,7 +416,7 @@ def showAssetCandles2(title: str, candles2: dict, indicators: slice = None, colu
 
     if indicators != None:
         for v in indicators:
-            if candles2[v] != None:
+            if v in candles2:
                 fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
                                          mode='lines',
                                          name=title))

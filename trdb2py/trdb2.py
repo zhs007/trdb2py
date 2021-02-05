@@ -99,9 +99,16 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
             asset=str2asset(asset),
         )
 
-        buy0 = trdb2py.trading2_pb2.CtrlCondition(
-            name='buyandhold',
-        )
+        arrbuy = []
+
+        for v in indicators:
+            buy0 = trdb2py.trading2_pb2.CtrlCondition(
+                name='indicatorsp',
+                operators=['upcross'],
+                strVals=[v],
+            )        
+
+            arrbuy.append(buy0)
 
         paramsbuy = trdb2py.trading2_pb2.BuyParams(
             perHandMoney=1,
@@ -111,7 +118,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
             money=10000,
         )
 
-        s0.buy.extend([buy0])
+        s0.buy.extend(arrbuy)
         s0.paramsBuy.CopyFrom(paramsbuy)
         s0.paramsInit.CopyFrom(paramsinit)
 
@@ -125,11 +132,11 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
         )
 
         ret1 = simTrading(cfg, p0, ignoreCache)
-        print(ret1)
+        # print(ret1)
         if ret1 != None:
             for v in indicators:
                 idf = getIndicatorInResult(ret1, v, dtFormat)
-                if idf != None:
+                if idf.empty:
                     ret[v] = idf
 
     return ret
