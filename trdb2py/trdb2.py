@@ -106,7 +106,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
                 name='indicatorsp',
                 operators=['upcross'],
                 strVals=[v],
-            )        
+            )
 
             arrbuy.append(buy0)
 
@@ -135,7 +135,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
         # print(ret1)
         if ret1 != None:
             for v in indicators:
-                idf = getIndicatorInResult(ret1, v, dtFormat)
+                idf = getIndicatorInResult(ret1, v, dtFormat, scale)
                 if not idf.empty:
                     ret[v] = idf
 

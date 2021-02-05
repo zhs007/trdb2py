@@ -39,7 +39,7 @@ def analysisResult(result: dict, dtFormat: str = '%Y-%m-%d') -> dict:
     return None
 
 
-def getIndicatorInResult(result: dict, indicatorName: str, dtFormat: str = '%Y-%m-%d') -> pd.DataFrame:
+def getIndicatorInResult(result: dict, indicatorName: str, dtFormat: str = '%Y-%m-%d', scale: float = 10000.0) -> pd.DataFrame:
     if len(result['pnl'].indicators) > 0:
         for v in result['pnl'].indicators:
             if v.fullname == indicatorName:
@@ -49,7 +49,7 @@ def getIndicatorInResult(result: dict, indicatorName: str, dtFormat: str = '%Y-%
                 }
 
                 for cd in v.data:
-                    fv0['val'].append(cd.vals[0])
+                    fv0['val'].append(cd.vals[0] / scale)
                     fv0['date'].append(datetime.fromtimestamp(
                         cd.ts).strftime(dtFormat))
 
