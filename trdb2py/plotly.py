@@ -419,7 +419,7 @@ def showAssetCandles2(title: str, candles2: dict, indicators: slice = None, colu
             if v in candles2:
                 fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
                                          mode='lines',
-                                         name=title))
+                                         name=v))
 
     if toImg:
         fig.show(renderer="png", width=width, height=height)
