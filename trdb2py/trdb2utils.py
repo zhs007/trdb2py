@@ -53,6 +53,6 @@ def getIndicatorInResult(result: dict, indicatorName: str, dtFormat: str = '%Y-%
                     fv0['date'].append(datetime.fromtimestamp(
                         cd.ts).strftime(dtFormat))
 
-            return pd.DataFrame(fv0)
+                return pd.DataFrame(fv0)
 
     return None
