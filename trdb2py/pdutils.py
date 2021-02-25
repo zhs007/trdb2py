@@ -114,9 +114,9 @@ def buildPNLReport(lstpnl: list) -> pd.DataFrame:
 
 
 def getPNLLastTs(pnl):
-    ctrlnums = len(pnl['lstCtrl'])
+    ctrlnums = len(pnl.lstCtrl)
 
     if ctrlnums <= 0:
         return -1
 
-    return pnl['lstCtrl'][ctrlnums - 1]['ts']
+    return pnl.lstCtrl[ctrlnums - 1].ts
