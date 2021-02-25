@@ -3,7 +3,7 @@ from trdb2py.config import loadConfig
 from trdb2py.trdb2 import simTradings, getAssetCandles, simTrading, getAssetCandles2
 from trdb2py.utils import str2asset, nextWeekDay, asset2str
 from trdb2py.timeutils import str2timestamp
-from trdb2py.pdutils import buildPNLReport
+from trdb2py.pdutils import buildPNLReport, getPNLLastTs
 from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
                                 buildPNLWinRateInMonths, buildPNLListWinRateInYears2,
                                 buildPNLListWinRateInMonths2, buildPNLListWinRate4Month,

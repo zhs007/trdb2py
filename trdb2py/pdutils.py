@@ -111,3 +111,12 @@ def buildPNLReport(lstpnl: list) -> pd.DataFrame:
                 v['pnl'].winTimes * 1.0 / (v['pnl'].sellTimes + v['pnl'].stoplossTimes))
 
     return pd.DataFrame(fv0)
+
+
+def getPNLLastTs(pnl):
+    ctrlnums = len(pnl['lstCtrl'])
+
+    if ctrlnums <= 0:
+        return -1
+
+    return pnl['lstCtrl'][ctrlnums - 1]['ts']
