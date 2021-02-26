@@ -113,10 +113,43 @@ def buildPNLReport(lstpnl: list) -> pd.DataFrame:
     return pd.DataFrame(fv0)
 
 
-def getPNLLastTs(pnl):
+def getPNLLastTs(pnl: trdb2py.trading2_pb2.PNLAssetData):
     ctrlnums = len(pnl.lstCtrl)
 
     if ctrlnums <= 0:
         return -1
 
     return pnl.lstCtrl[ctrlnums - 1].ts
+
+
+def getPNLValueWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData) -> int:
+    for i in range(0, len(pnl.values)):
+        if ts == pnl.values[i].ts:
+            return i
+
+        if ts < pnl.values[i].ts:
+            pnl.values.insert(i, trdb2py.trading2_pb2.PNLDataValue(ts=ts))
+
+            return i
+
+    pnl.values.append(trdb2py.trading2_pb2.PNLDataValue(ts=ts))
+
+    return 0
+
+
+def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
+    pnl = trdb2py.trading2_pb2.PNLAssetData()
+
+    for v in lstpnl:
+        for cai in range(0, len(v.values)):
+            di = getPNLValueWithTimestamp(v.values[cai].ts, pnl)
+            pnl.values[di].value += v.values[cai].value
+            pnl.values[di].cost += v.values[cai].cost
+
+            if pnl.values[di].cost > 0:
+                pnl.values[di].perValue = pnl.values[di].value / \
+                    pnl.values[di].cost
+            else:
+                pnl.values[di].perValue = 1
+
+    return pnl
