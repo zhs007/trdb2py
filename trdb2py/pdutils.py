@@ -134,7 +134,7 @@ def getPNLValueWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData) -> int:
 
     pnl.values.append(trdb2py.trading2_pb2.PNLDataValue(ts=ts))
 
-    return 0
+    return len(pnl.values) - 1
 
 
 def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
