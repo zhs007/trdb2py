@@ -168,7 +168,7 @@ def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
 
 def rmPNLValuesWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData):
     i = getPNLValueWithTimestamp(ts, pnl)
-    pnl.values.extend(pnl.values[0:i+1])
+    del pnl.values[i+1:]
 
 
 def getPNLTimestampLowInMonth(pnl: trdb2py.trading2_pb2.PNLAssetData) -> list:
