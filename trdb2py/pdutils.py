@@ -122,6 +122,15 @@ def getPNLLastTs(pnl: trdb2py.trading2_pb2.PNLAssetData):
     return pnl.lstCtrl[ctrlnums - 1].ts
 
 
+def getPNLLastCtrl(pnl: trdb2py.trading2_pb2.PNLAssetData) -> trdb2py.trading2_pb2.CtrlNode:
+    ctrlnums = len(pnl.lstCtrl)
+
+    if ctrlnums <= 0:
+        return None
+
+    return pnl.lstCtrl[ctrlnums - 1]
+
+
 def getPNLValueWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData) -> int:
     for i in range(0, len(pnl.values)):
         if ts == pnl.values[i].ts:
@@ -155,3 +164,8 @@ def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
                 pnl.values[di].perValue = 1
 
     return pnl
+
+
+def rmPNLValuesWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData):
+    i = getPNLValueWithTimestamp(ts, pnl)
+    pnl.values.extend(pnl.values[0:i+1])
