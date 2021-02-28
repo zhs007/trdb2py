@@ -169,3 +169,69 @@ def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
 def rmPNLValuesWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData):
     i = getPNLValueWithTimestamp(ts, pnl)
     pnl.values.extend(pnl.values[0:i+1])
+
+
+def getPNLTimestampLowInMonth(pnl: trdb2py.trading2_pb2.PNLAssetData) -> list:
+    ts = 0
+    dt = None
+    lastPerValue = 0
+    arr = []
+
+    for i in range(0, len(pnl.values)):
+        v = pnl.values[i]
+
+        if ts == 0:
+            ts = v.ts
+            dt = datetime.utcfromtimestamp(ts)
+            lastPerValue = v.perValue
+        else:
+            cdt = datetime.utcfromtimestamp(v.ts)
+            if dt.year == cdt.year and dt.month == cdt.month:
+                if lastPerValue > v.perValue:
+                    ts = v.ts
+                    dt = cdt
+                    lastPerValue = v.perValue
+
+                if i == len(pnl.values) - 1:
+                    arr.append(ts)
+            else:
+                arr.append(ts)
+
+                ts = v.ts
+                dt = cdt
+                lastPerValue = v.perValue
+
+    return arr
+
+
+def getPNLTimestampHighInMonth(pnl: trdb2py.trading2_pb2.PNLAssetData) -> list:
+    ts = 0
+    dt = None
+    lastPerValue = 0
+    arr = []
+
+    for i in range(0, len(pnl.values)):
+        v = pnl.values[i]
+
+        if ts == 0:
+            ts = v.ts
+            dt = datetime.utcfromtimestamp(ts)
+            lastPerValue = v.perValue
+        else:
+            cdt = datetime.utcfromtimestamp(v.ts)
+            if dt.year == cdt.year and dt.month == cdt.month:
+                if lastPerValue < v.perValue:
+                    ts = v.ts
+                    dt = cdt
+                    lastPerValue = v.perValue
+
+                if i == len(pnl.values) - 1:
+                    arr.append(ts)
+            else:
+                arr.append(ts)
+
+                ts = v.ts
+                dt = cdt
+                lastPerValue = v.perValue
+
+    return arr
