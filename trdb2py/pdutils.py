@@ -166,6 +166,18 @@ def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
     return pnl
 
 
+def mergePNLEx(pnldest: trdb2py.trading2_pb2.PNLAssetData, pnlsrc: trdb2py.trading2_pb2.PNLAssetData, inmoney):
+    for cai in range(0, len(pnlsrc.values)):
+        di = getPNLValueWithTimestamp(pnlsrc.values[cai].ts, pnldest)
+        pnldest.values[di].value += (pnlsrc.values[cai].value - inmoney)
+
+        if pnldest.values[di].cost > 0:
+            pnldest.values[di].perValue = pnldest.values[di].value / \
+                pnldest.values[di].cost
+        else:
+            pnldest.values[di].perValue = 1
+
+
 def rmPNLValuesWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData):
     i = getPNLValueWithTimestamp(ts, pnl)
     del pnl.values[i+1:]
