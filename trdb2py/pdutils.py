@@ -4,6 +4,9 @@ from trdb2py.utils import str2asset, asset2str
 from datetime import datetime
 import time
 import pandas as pd
+import numpy as np
+import math
+from trdb2py.timeutils import str2timestamp, getDayInYear, getYearDays
 
 
 def buildPNLReport(lstpnl: list) -> pd.DataFrame:
@@ -166,9 +169,21 @@ def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
     return pnl
 
 
+def mergePNLEx(pnldest: trdb2py.trading2_pb2.PNLAssetData, pnlsrc: trdb2py.trading2_pb2.PNLAssetData, inmoney):
+    for cai in range(0, len(pnlsrc.values)):
+        di = getPNLValueWithTimestamp(pnlsrc.values[cai].ts, pnldest)
+        pnldest.values[di].value += (pnlsrc.values[cai].value - inmoney)
+
+        if pnldest.values[di].cost > 0:
+            pnldest.values[di].perValue = pnldest.values[di].value / \
+                pnldest.values[di].cost
+        else:
+            pnldest.values[di].perValue = 1
+
+
 def rmPNLValuesWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData):
     i = getPNLValueWithTimestamp(ts, pnl)
-    pnl.values.extend(pnl.values[0:i+1])
+    del pnl.values[i+1:]
 
 
 def getPNLTimestampLowInMonth(pnl: trdb2py.trading2_pb2.PNLAssetData) -> list:
@@ -235,3 +250,89 @@ def getPNLTimestampHighInMonth(pnl: trdb2py.trading2_pb2.PNLAssetData) -> list:
                 lastPerValue = v.perValue
 
     return arr
+
+
+def countTradingDays4Year(pnl: trdb2py.trading2_pb2.PNLAssetData):
+    if len(pnl.values) > 0:
+        st = datetime.utcfromtimestamp(pnl.values[0].ts)
+        et = datetime.utcfromtimestamp(pnl.values[len(pnl.values) - 1].ts)
+
+        std = getDayInYear(st.year, st.month, st.day)
+        etd = getDayInYear(et.year, et.month, et.day)
+
+        sty = std / float(getYearDays(st.year))
+        ety = etd / float(getYearDays(et.year))
+
+        fy = et.year - st.year - 1 + 1 - sty + ety
+
+        return int(len(pnl.values) / fy)
+
+    return 0
+
+
+def calcAnnualizedVolatility(pnl: trdb2py.trading2_pb2.PNLAssetData):
+    # https://www.zhihu.com/question/19770602
+    # https://wiki.mbalib.com/wiki/%E5%8E%86%E5%8F%B2%E6%B3%A2%E5%8A%A8%E7%8E%87
+
+    if len(pnl.values) > 0:
+        arr = []
+        for i in range(1, len(pnl.values)):
+            arr.append(
+                math.log(pnl.values[i].perValue / pnl.values[i-1].perValue))
+
+        arrstd = np.std(arr)
+        pnl.annualizedVolatility = arrstd * \
+            math.sqrt(countTradingDays4Year(pnl))
+    else:
+        return 0
+
+
+def rebuildPNL(pnl: trdb2py.trading2_pb2.PNLAssetData):
+    if len(pnl.values) > 0:
+        pnl.totalReturns = pnl.values[len(pnl.values) - 1].perValue
+
+        calcAnnualizedVolatility(pnl)
+
+        rebuildDrawdown(pnl)
+
+        calcAnnualizedReturns(pnl)
+
+        calcSharpe(pnl)
+    else:
+        pnl.totalReturns = 1.0
+        pnl.annualizedVolatility = 0
+
+
+def rebuildDrawdown(pnl: trdb2py.trading2_pb2.PNLAssetData):
+    maxv = 0
+    maxdd = 0
+    startts = 0
+    endts = 0
+
+    for v in pnl.values:
+        if v.perValue > maxv:
+            maxv = v.perValue
+            v.drawdown = 0
+            startts = v.ts
+        else:
+            v.drawdown = (maxv - v.perValue) / maxv
+
+            if v.drawdown > maxdd:
+                maxdd = v.drawdown
+                endts = v.ts
+
+    pnl.maxDrawdown = maxdd
+    pnl.maxDrawdownStartTs = startts
+    pnl.maxDrawdownEndTs = endts
+
+
+def calcAnnualizedReturns(pnl: trdb2py.trading2_pb2.PNLAssetData):
+    if len(pnl.values) > 0:
+        pnl.annualizedreturns = (pnl.values[len(
+            pnl.values) - 1].perValue - 1) / len(pnl.values) * countTradingDays4Year(pnl)
+
+
+def calcSharpe(pnl: trdb2py.trading2_pb2.PNLAssetData):
+    # https://www.zhihu.com/question/27264526
+
+    pnl.sharpe = (pnl.annualizedreturns - 0.03) / pnl.annualizedvolatility
