@@ -328,11 +328,11 @@ def rebuildDrawdown(pnl: trdb2py.trading2_pb2.PNLAssetData):
 
 def calcAnnualizedReturns(pnl: trdb2py.trading2_pb2.PNLAssetData):
     if len(pnl.values) > 0:
-        pnl.annualizedreturns = (pnl.values[len(
+        pnl.annualizedReturns = (pnl.values[len(
             pnl.values) - 1].perValue - 1) / len(pnl.values) * countTradingDays4Year(pnl)
 
 
 def calcSharpe(pnl: trdb2py.trading2_pb2.PNLAssetData):
     # https://www.zhihu.com/question/27264526
 
-    pnl.sharpe = (pnl.annualizedreturns - 0.03) / pnl.annualizedvolatility
+    pnl.sharpe = (pnl.annualizedReturns - 0.03) / pnl.annualizedVolatility
