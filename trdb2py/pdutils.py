@@ -307,7 +307,8 @@ def rebuildDrawdown(pnl: trdb2py.trading2_pb2.PNLAssetData):
     maxv = 0
     maxdd = 0
     startts = 0
-    endts = 0
+    maxddsts = 0
+    maxddets = 0
 
     for v in pnl.values:
         if v.perValue > maxv:
@@ -319,11 +320,12 @@ def rebuildDrawdown(pnl: trdb2py.trading2_pb2.PNLAssetData):
 
             if v.drawdown > maxdd:
                 maxdd = v.drawdown
-                endts = v.ts
+                maxddsts = startts
+                maxddets = v.ts
 
     pnl.maxDrawdown = maxdd
-    pnl.maxDrawdownStartTs = startts
-    pnl.maxDrawdownEndTs = endts
+    pnl.maxDrawdownStartTs = maxddsts
+    pnl.maxDrawdownEndTs = maxddets
 
 
 def calcAnnualizedReturns(pnl: trdb2py.trading2_pb2.PNLAssetData):
