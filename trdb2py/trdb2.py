@@ -86,7 +86,8 @@ def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: 
     return None
 
 
-def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', scale: float = 10000.0, indicators: slice = None, ignoreCache: bool = False) -> dict:
+def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', offset: int = 0,
+                     scale: float = 10000.0, indicators: slice = None, ignoreCache: bool = False) -> dict:
     df = getAssetCandles(cfg, asset, tsStart, tsEnd, dtFormat, scale)
 
     ret = {
@@ -129,6 +130,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
             strategies=[s0],
             title='buyandhold',
             indicators=indicators,
+            offset=offset,
         )
 
         ret1 = simTrading(cfg, p0, ignoreCache)
