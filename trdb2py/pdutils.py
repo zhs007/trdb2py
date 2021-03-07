@@ -334,3 +334,23 @@ def calcSharpe(pnl: trdb2py.trading2_pb2.PNLAssetData):
     # https://www.zhihu.com/question/27264526
 
     pnl.sharpe = (pnl.annualizedReturns - 0.03) / pnl.annualizedVolatility
+
+
+def clonePNLWithTs(pnl: trdb2py.trading2_pb2.PNLAssetData, startTs) -> trdb2py.trading2_pb2.PNLAssetData:
+    npnl = trdb2py.trading2_pb2.PNLAssetData()
+    firsti = -1
+    firstpv = 1
+
+    for cai in range(0, len(pnl.values)):
+        if pnl.values[cai].ts >= startTs:
+            if firsti < 0:
+                firsti = cai
+                firstpv = pnl.values[cai].perValue
+
+            di = getPNLValueWithTimestamp(pnl.values[cai].ts, npnl)
+            npnl.values[di].value += pnl.values[cai].value
+            npnl.values[di].cost += pnl.values[cai].cost
+
+            npnl.values[di].perValue = pnl.values[cai].perValue / firstpv
+
+    return npnl
