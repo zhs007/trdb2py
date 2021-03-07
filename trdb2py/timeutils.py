@@ -23,3 +23,16 @@ def getYearDays(year):
         return 366
 
     return 365
+
+
+def calcYears(tsstart, tsend):
+    st = datetime.utcfromtimestamp(tsstart)
+    et = datetime.utcfromtimestamp(tsend)
+
+    std = getDayInYear(st.year, st.month, st.day)
+    etd = getDayInYear(et.year, et.month, et.day)
+
+    sty = std / float(getYearDays(st.year))
+    ety = etd / float(getYearDays(et.year))
+
+    return et.year - st.year - 1 + 1 - sty + ety

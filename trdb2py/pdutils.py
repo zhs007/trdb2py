@@ -6,7 +6,7 @@ import time
 import pandas as pd
 import numpy as np
 import math
-from trdb2py.timeutils import str2timestamp, getDayInYear, getYearDays
+from trdb2py.timeutils import str2timestamp, getDayInYear, getYearDays, calcYears
 
 
 def buildPNLReport(lstpnl: list) -> pd.DataFrame:
@@ -254,16 +254,7 @@ def getPNLTimestampHighInMonth(pnl: trdb2py.trading2_pb2.PNLAssetData) -> list:
 
 def countTradingDays4Year(pnl: trdb2py.trading2_pb2.PNLAssetData):
     if len(pnl.values) > 0:
-        st = datetime.utcfromtimestamp(pnl.values[0].ts)
-        et = datetime.utcfromtimestamp(pnl.values[len(pnl.values) - 1].ts)
-
-        std = getDayInYear(st.year, st.month, st.day)
-        etd = getDayInYear(et.year, et.month, et.day)
-
-        sty = std / float(getYearDays(st.year))
-        ety = etd / float(getYearDays(et.year))
-
-        fy = et.year - st.year - 1 + 1 - sty + ety
+        fy = calcYears(pnl.values[0].ts, pnl.values[len(pnl.values) - 1].ts)
 
         return int(len(pnl.values) / fy)
 
@@ -330,8 +321,13 @@ def rebuildDrawdown(pnl: trdb2py.trading2_pb2.PNLAssetData):
 
 def calcAnnualizedReturns(pnl: trdb2py.trading2_pb2.PNLAssetData):
     if len(pnl.values) > 0:
-        pnl.annualizedReturns = (pnl.values[len(
-            pnl.values) - 1].perValue - 1) / len(pnl.values) * countTradingDays4Year(pnl)
+        fy = calcYears(pnl.values[0].ts, pnl.values[len(pnl.values) - 1].ts)
+        if fy <= 1:
+            pnl.annualizedReturns = pnl.values[len(
+                pnl.values) - 1].perValue - 1
+        else:
+            pnl.annualizedReturns = (pnl.values[len(
+                pnl.values) - 1].perValue - 1) / len(pnl.values) * countTradingDays4Year(pnl)
 
 
 def calcSharpe(pnl: trdb2py.trading2_pb2.PNLAssetData):
