@@ -46,7 +46,7 @@ def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', isSh
     #               title=pnl['title'])
 
     if isShowBuy:
-        fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+        fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
         # for v in pnl['pnl'].lstCtrl:
         #     if v.type == trdb2py.trading2_pb2.CtrlType.CTRL_BUY:
         #         fv1['date'].append(
@@ -67,7 +67,7 @@ def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', isSh
                                  name='{}:buy'.format(pnl['title'])))
 
     if isShowSell:
-        fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+        fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
         # for v in pnl['pnl'].lstCtrl:
         #     if v.type == trdb2py.trading2_pb2.CtrlType.CTRL_SELL:
         #         fv1['date'].append(
@@ -121,13 +121,13 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -155,13 +155,13 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -200,13 +200,13 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -234,13 +234,13 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl, trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
