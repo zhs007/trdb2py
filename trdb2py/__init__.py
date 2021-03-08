@@ -6,7 +6,7 @@ from trdb2py.timeutils import str2timestamp, getDayInYear, getYearDays, calcYear
 from trdb2py.pdutils import (buildPNLReport, getPNLLastTs, getPNLValueWithTimestamp, mergePNL, mergePNLEx,
                              rmPNLValuesWithTimestamp, getPNLTimestampLowInMonth, getPNLTimestampHighInMonth,
                              countTradingDays4Year, calcAnnualizedVolatility, rebuildPNL, rebuildDrawdown,
-                             calcAnnualizedReturns, calcSharpe, clonePNLWithTs)
+                             calcAnnualizedReturns, calcSharpe, clonePNLWithTs, genCtrlData)
 from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
                                 buildPNLWinRateInMonths, buildPNLListWinRateInYears2,
                                 buildPNLListWinRateInMonths2, buildPNLListWinRate4Month,

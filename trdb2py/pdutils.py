@@ -134,19 +134,26 @@ def getPNLLastCtrl(pnl: trdb2py.trading2_pb2.PNLAssetData) -> trdb2py.trading2_p
     return pnl.lstCtrl[ctrlnums - 1]
 
 
-def getPNLValueWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData) -> int:
+def getPNLValueWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData, isAdd: bool = True) -> int:
+    if isAdd:
+        for i in range(0, len(pnl.values)):
+            if ts == pnl.values[i].ts:
+                return i
+
+            if ts < pnl.values[i].ts:
+                pnl.values.insert(i, trdb2py.trading2_pb2.PNLDataValue(ts=ts))
+
+                return i
+
+        pnl.values.append(trdb2py.trading2_pb2.PNLDataValue(ts=ts))
+
+        return len(pnl.values) - 1
+
     for i in range(0, len(pnl.values)):
         if ts == pnl.values[i].ts:
             return i
 
-        if ts < pnl.values[i].ts:
-            pnl.values.insert(i, trdb2py.trading2_pb2.PNLDataValue(ts=ts))
-
-            return i
-
-    pnl.values.append(trdb2py.trading2_pb2.PNLDataValue(ts=ts))
-
-    return len(pnl.values) - 1
+    return -1
 
 
 def mergePNL(lstpnl: list) -> trdb2py.trading2_pb2.PNLAssetData:
@@ -354,3 +361,23 @@ def clonePNLWithTs(pnl: trdb2py.trading2_pb2.PNLAssetData, startTs) -> trdb2py.t
             npnl.values[di].perValue = pnl.values[cai].perValue / firstpv
 
     return npnl
+
+
+def genCtrlData(pnl: trdb2py.trading2_pb2.PNLAssetData, ctrlType, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', defVal=1) -> dict:
+    fv1 = {'date': [], 'value': []}
+    for v in pnl['pnl'].lstCtrl:
+        if v.type == ctrlType:
+            fv1['date'].append(
+                datetime.fromtimestamp(v.ts).strftime(dtFormat))
+
+            vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
+            if vi >= 0:
+                if isPerValue:
+                    fv1['value'].append(pnl['pnl'].values[vi].perValue)
+                else:
+                    fv1['value'].append(
+                        pnl['pnl'].values[vi].value - pnl['pnl'].values[vi].cost)
+            else:
+                fv1['value'].append(defVal)
+
+    return fv1
