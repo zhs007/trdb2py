@@ -367,18 +367,17 @@ def clonePNLWithTs(pnl: trdb2py.trading2_pb2.PNLAssetData, startTs) -> trdb2py.t
 
 def genCtrlData(pnl: trdb2py.trading2_pb2.PNLAssetData, ctrlType, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', defVal=1) -> dict:
     fv1 = {'date': [], 'value': []}
-    for v in pnl['pnl'].lstCtrl:
+    for v in pnl.lstCtrl:
         if v.type == ctrlType:
-            fv1['date'].append(
-                datetime.fromtimestamp(v.ts).strftime(dtFormat))
+            fv1['date'].append(datetime.fromtimestamp(v.ts).strftime(dtFormat))
 
             vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
             if vi >= 0:
                 if isPerValue:
-                    fv1['value'].append(pnl['pnl'].values[vi].perValue)
+                    fv1['value'].append(pnl.values[vi].perValue)
                 else:
                     fv1['value'].append(
-                        pnl['pnl'].values[vi].value - pnl['pnl'].values[vi].cost)
+                        pnl.values[vi].value - pnl.values[vi].cost)
             else:
                 fv1['value'].append(defVal)
 
