@@ -149,8 +149,7 @@ def getPNLValueWithTimestamp(ts, pnl: trdb2py.trading2_pb2.PNLAssetData, isAdd: 
 
         return len(pnl.values) - 1
 
-    i = 0
-    for v in pnl.values:
+    for i in range(0, len(pnl.values)):
         if ts == pnl.values[i].ts:
             return i
 
