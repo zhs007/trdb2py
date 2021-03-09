@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from trdb2py.config import loadConfig
+from trdb2py.indicator import isPriceIndicator, isNeedSecondY
 from trdb2py.trdb2 import simTradings, getAssetCandles, simTrading, getAssetCandles2
 from trdb2py.utils import str2asset, nextWeekDay, asset2str
 from trdb2py.timeutils import str2timestamp, getDayInYear, getYearDays, calcYears

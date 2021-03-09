@@ -8,6 +8,7 @@ from trdb2py.statistics import (buildPNLWinRateInYears, buildPNLListWinRateInYea
                                 buildPNLWinRateInMonths, buildPNLListWinRateInMonths2, buildPNLListWinRate4Month,
                                 buildPNLListResponseRateInYears2)
 from trdb2py.trdb2utils import buildPNLDataFrame
+from trdb2py.indicator import isPriceIndicator, isNeedSecondY
 from trdb2py.pdutils import (buildPNLReport, getPNLLastTs, getPNLValueWithTimestamp, mergePNL, mergePNLEx,
                              rmPNLValuesWithTimestamp, getPNLTimestampLowInMonth, getPNLTimestampHighInMonth,
                              countTradingDays4Year, calcAnnualizedVolatility, rebuildPNL, rebuildDrawdown,
@@ -121,13 +122,15 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -155,13 +158,15 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -200,13 +205,15 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -234,13 +241,15 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
                                      name=pnl['title']))
 
             if isShowBuy:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
-                fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                fv1 = genCtrlData(
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
@@ -513,19 +522,62 @@ def showBarResponseRateInYears(lstpnl: list, toImg: bool = False, width=1024, he
         fig.show()
 
 
-def showAssetCandles2(title: str, candles2: dict, indicators: slice = None, columm: str = 'close', toImg: bool = False, width=1024, height=768):
+def showAssetCandles2(title: str, candles2: dict, indicators: list = None, columm: str = 'close', toImg: bool = False, width=1024, height=768):
+    if indicators == None:
+        fig = go.Figure()
+
+        fig.add_trace(go.Scatter(x=candles2['candle']['date'], y=candles2['candle'][columm],
+                                 mode='lines',
+                                 name=title))
+
+        if toImg:
+            fig.show(renderer="png", width=width, height=height)
+        else:
+            fig.show()
+
+        return
+
+    if isNeedSecondY(indicators):
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+        fig.add_trace(go.Scatter(x=candles2['candle']['date'], y=candles2['candle'][columm],
+                                 mode='lines',
+                                 name=title),
+                      secondary_y=False)
+
+        for v in indicators:
+            if v in candles2:
+                if isPriceIndicator(v):
+                    fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
+                                             mode='lines',
+                                             name=v),
+                                  secondary_y=False)
+                else:
+                    fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
+                                             mode='lines',
+                                             name=v),
+                                  secondary_y=True)
+
+        fig.update_yaxes(title_text="price", secondary_y=False)
+
+        if toImg:
+            fig.show(renderer="png", width=width, height=height)
+        else:
+            fig.show()
+
+        return
+
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(x=candles2['candle']['date'], y=candles2['candle'][columm],
                              mode='lines',
                              name=title))
 
-    if indicators != None:
-        for v in indicators:
-            if v in candles2:
-                fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
-                                         mode='lines',
-                                         name=v))
+    for v in indicators:
+        if v in candles2:
+            fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
+                                     mode='lines',
+                                     name=v))
 
     if toImg:
         fig.show(renderer="png", width=width, height=height)
