@@ -10,7 +10,63 @@ import time
 import pandas as pd
 
 
-def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', scale: float = 10000.0) -> pd.DataFrame:
+def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
+               dtFormat: str = '%Y-%m-%d', scale: float = 10000.0):
+    for i in range(0, len(fv['ts'])):
+        if fv['ts'] == sc.ts:
+            if sc.HasField('open'):
+                fv['open'][i] = sc.open / scale
+
+            if sc.HasField('close'):
+                fv['close'][i] = sc.close / scale
+
+            if sc.HasField('high'):
+                fv['high'][i] = sc.high / scale
+
+            if sc.HasField('low'):
+                fv['low'][i] = sc.low / scale
+
+            return
+
+        if fv['ts'] < sc.ts:
+            fv['ts'].insert(i, sc.ts)
+            fv['date'].insert(i, datetime.fromtimestamp(
+                sc.ts).strftime(dtFormat))
+
+            if sc.HasField('open'):
+                fv['open'].insert(i, sc.open / scale)
+
+            if sc.HasField('close'):
+                fv['close'].insert(i, sc.close / scale)
+
+            if sc.HasField('high'):
+                fv['high'].insert(i, sc.high / scale)
+
+            if sc.HasField('low'):
+                fv['low'].insert(i, sc.low / scale)
+
+            return
+
+    fv['ts'].append(sc.ts)
+    fv['date'].append(datetime.fromtimestamp(
+        sc.ts).strftime(dtFormat))
+
+    if sc.HasField('open'):
+        fv['open'].append(sc.open / scale)
+
+    if sc.HasField('close'):
+        fv['close'].append(sc.close / scale)
+
+    if sc.HasField('high'):
+        fv['high'].append(sc.high / scale)
+
+    if sc.HasField('low'):
+        fv['low'].append(sc.low / scale)
+
+
+def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, simCandle: trdb2py.trading2_pb2.Candles = None,
+                    dtFormat: str = '%Y-%m-%d', scale: float = 10000.0) -> pd.DataFrame:
+
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
@@ -26,15 +82,21 @@ def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: s
         ),
     ))
 
-    fv = {'date': [], 'close': [], 'open': [], 'high': [], 'low': []}
+    fv = {'date': [], 'close': [], 'open': [], 'high': [], 'low': [], 'ts': []}
     for curres in response:
         for candle in curres.candles.candles:
+            fv['ts'].append(candle.ts)
             fv['date'].append(datetime.fromtimestamp(
                 candle.ts).strftime(dtFormat))
             fv['open'].append(candle.open / scale)
             fv['close'].append(candle.close / scale)
             fv['high'].append(candle.high / scale)
             fv['low'].append(candle.low / scale)
+
+    if simCandle:
+        if curasset.market == simCandle.market and curasset.symbol == simCandle.symbol:
+            for v in simCandle.candles:
+                insCandles(fv, v, dtFormat, scale)
 
     return pd.DataFrame(fv)
 
@@ -87,8 +149,10 @@ def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: 
 
 
 def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', offset: int = 0,
-                     scale: float = 10000.0, indicators: slice = None, ignoreCache: bool = False) -> dict:
-    df = getAssetCandles(cfg, asset, tsStart, tsEnd, dtFormat, scale)
+                     scale: float = 10000.0, indicators: slice = None, simCandle: trdb2py.trading2_pb2.Candles = None, ignoreCache: bool = False) -> dict:
+
+    df = getAssetCandles(cfg, asset, tsStart, tsEnd,
+                         simCandle=simCandle, dtFormat=dtFormat, scale=scale)
 
     ret = {
         'candle': df,
