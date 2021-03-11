@@ -28,7 +28,7 @@ def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
 
             return
 
-        if fv['ts'][i] < sc.ts:
+        if fv['ts'][i] > sc.ts:
             fv['ts'].insert(i, sc.ts)
             fv['date'].insert(i, datetime.fromtimestamp(
                 sc.ts).strftime(dtFormat))
