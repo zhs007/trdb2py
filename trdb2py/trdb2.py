@@ -14,16 +14,16 @@ def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
                dtFormat: str = '%Y-%m-%d', scale: float = 10000.0):
     for i in range(0, len(fv['ts'])):
         if fv['ts'][i] == sc.ts:
-            if sc.HasField('open'):
+            if sc.open:
                 fv['open'][i] = sc.open / scale
 
-            if sc.HasField('close'):
+            if sc.close:
                 fv['close'][i] = sc.close / scale
 
-            if sc.HasField('high'):
+            if sc.high:
                 fv['high'][i] = sc.high / scale
 
-            if sc.HasField('low'):
+            if sc.low:
                 fv['low'][i] = sc.low / scale
 
             return
@@ -33,16 +33,16 @@ def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
             fv['date'].insert(i, datetime.fromtimestamp(
                 sc.ts).strftime(dtFormat))
 
-            if sc.HasField('open'):
+            if sc.open:
                 fv['open'].insert(i, sc.open / scale)
 
-            if sc.HasField('close'):
+            if sc.close:
                 fv['close'].insert(i, sc.close / scale)
 
-            if sc.HasField('high'):
+            if sc.high:
                 fv['high'].insert(i, sc.high / scale)
 
-            if sc.HasField('low'):
+            if sc.low:
                 fv['low'].insert(i, sc.low / scale)
 
             return
@@ -51,16 +51,16 @@ def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
     fv['date'].append(datetime.fromtimestamp(
         sc.ts).strftime(dtFormat))
 
-    if sc.HasField('open'):
+    if sc.open:
         fv['open'].append(sc.open / scale)
 
-    if sc.HasField('close'):
+    if sc.close:
         fv['close'].append(sc.close / scale)
 
-    if sc.HasField('high'):
+    if sc.high:
         fv['high'].append(sc.high / scale)
 
-    if sc.HasField('low'):
+    if sc.low:
         fv['low'].append(sc.low / scale)
 
 
