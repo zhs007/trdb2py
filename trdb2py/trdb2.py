@@ -94,7 +94,7 @@ def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, simCandle: 
             fv['low'].append(candle.low / scale)
 
     if simCandle:
-        if curasset.market == simCandle.market and curasset.symbol == simCandle.symbol:
+        if curasset.market == simCandle.market and curasset.code == simCandle.symbol:
             for v in simCandle.candles:
                 insCandles(fv, v, dtFormat, scale)
 
