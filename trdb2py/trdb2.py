@@ -13,7 +13,7 @@ import pandas as pd
 def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
                dtFormat: str = '%Y-%m-%d', scale: float = 10000.0):
     for i in range(0, len(fv['ts'])):
-        if fv['ts'] == sc.ts:
+        if fv['ts'][i] == sc.ts:
             if sc.HasField('open'):
                 fv['open'][i] = sc.open / scale
 
@@ -28,7 +28,7 @@ def insCandles(fv: dict, sc: trdb2py.trading2_pb2.Candle,
 
             return
 
-        if fv['ts'] < sc.ts:
+        if fv['ts'][i] < sc.ts:
             fv['ts'].insert(i, sc.ts)
             fv['date'].insert(i, datetime.fromtimestamp(
                 sc.ts).strftime(dtFormat))
