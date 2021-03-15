@@ -101,7 +101,8 @@ def getAssetCandles(cfg: dict, asset: str, tsStart: int, tsEnd: int, simCandle: 
     return pd.DataFrame(fv)
 
 
-def genSimTradingParams(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache: bool = False, minNums: int = 100):
+def genSimTradingParams(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache: bool = False,
+                        minNums: int = 10, maxIgnoreNums: int = 0):
     for i in range(len(lstParams)):
         yield trdb2py.tradingdb2_pb2.RequestSimTrading(
             basicRequest=trdb2py.trading2_pb2.BasicRequestData(
@@ -112,16 +113,19 @@ def genSimTradingParams(cfg, lstParams: list, ignoreTotalReturn: float = 0, igno
             index=i,
             ignoreTotalReturn=ignoreTotalReturn,
             minNums=minNums,
+            maxIgnoreNums=maxIgnoreNums,
         )
 
 
-def simTradings(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache: bool = False, minNums: int = 100) -> list:
+def simTradings(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache: bool = False,
+                minNums: int = 10, maxIgnoreNums: int = 0) -> list:
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
     lstRes = []
     responses = stub.simTrading2(
-        genSimTradingParams(cfg, lstParams, ignoreTotalReturn=ignoreTotalReturn, ignoreCache=ignoreCache, minNums=minNums))
+        genSimTradingParams(cfg, lstParams, ignoreTotalReturn=ignoreTotalReturn,
+                            ignoreCache=ignoreCache, minNums=minNums, maxIgnoreNums=maxIgnoreNums))
     for response in responses:
         if len(response.pnl) > 0:
             pnl = response.pnl[0]
