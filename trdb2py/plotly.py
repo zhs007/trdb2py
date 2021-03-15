@@ -43,25 +43,9 @@ def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', isSh
     fig.add_trace(go.Scatter(x=fv0['date'], y=fv0['value'],
                              mode='lines',
                              name=pnl['title']))
-    # fig = px.line(pd.DataFrame(fv0), x='date', y='value',
-    #               title=pnl['title'])
 
     if isShowBuy:
         fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
-        # for v in pnl['pnl'].lstCtrl:
-        #     if v.type == trdb2py.trading2_pb2.CtrlType.CTRL_BUY:
-        #         fv1['date'].append(
-        #             datetime.fromtimestamp(v.ts).strftime(dtFormat))
-
-        #         vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
-        #         if vi >= 0:
-        #             if isPerValue:
-        #                 fv1['value'].append(pnl['pnl'].values[vi].perValue)
-        #             else:
-        #                 fv1['value'].append(
-        #                     pnl['pnl'].values[vi].value - pnl['pnl'].values[vi].cost)
-        #         else:
-        #             fv1['value'].append(0)
 
         fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                  mode='markers',
@@ -69,20 +53,6 @@ def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', isSh
 
     if isShowSell:
         fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
-        # for v in pnl['pnl'].lstCtrl:
-        #     if v.type == trdb2py.trading2_pb2.CtrlType.CTRL_SELL:
-        #         fv1['date'].append(
-        #             datetime.fromtimestamp(v.ts).strftime(dtFormat))
-
-        #         vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
-        #         if vi >= 0:
-        #             if isPerValue:
-        #                 fv1['value'].append(pnl['pnl'].values[vi].perValue)
-        #             else:
-        #                 fv1['value'].append(
-        #                     pnl['pnl'].values[vi].value - pnl['pnl'].values[vi].cost)
-        #         else:
-        #             fv1['value'].append(0)
 
         fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                  mode='markers',
@@ -105,16 +75,6 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
         curnums = 0
 
         for pnl in lstpnl:
-            # fv0 = {'date': [], 'value': []}
-            # for v in pnl['pnl'].values:
-            #     fv0['date'].append(datetime.fromtimestamp(
-            #         v.ts).strftime(dtFormat))
-
-            #     if isPerValue:
-            #         fv0['value'].append(v.perValue)
-            #     else:
-            #         fv0['value'].append(v.value - v.cost)
-
             df = buildPNLDataFrame(pnl, isPerValue, dtFormat, startTs)
 
             fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
@@ -141,16 +101,6 @@ def showPNLs(lstpnl: list, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', 
                 break
     else:
         for pnl in lstpnl:
-            # fv0 = {'date': [], 'value': []}
-            # for v in pnl['pnl'].values:
-            #     fv0['date'].append(datetime.fromtimestamp(
-            #         v.ts).strftime(dtFormat))
-
-            #     if isPerValue:
-            #         fv0['value'].append(v.perValue)
-            #     else:
-            #         fv0['value'].append(v.value - v.cost)
-
             df = buildPNLDataFrame(pnl, isPerValue, dtFormat, startTs)
 
             fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
@@ -188,16 +138,6 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
         curnums = 0
 
         for pnl in lstpnl:
-            # fv0 = {'date': [], 'value': []}
-            # for v in pnl['pnl'].values:
-            #     fv0['date'].append(datetime.fromtimestamp(
-            #         v.ts).strftime(dtFormat))
-
-            #     if isPerValue:
-            #         fv0['value'].append(v.perValue)
-            #     else:
-            #         fv0['value'].append(v.value - v.cost)
-
             df = buildPNLDataFrame(pnl, isPerValue, dtFormat, startTs)
 
             fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
@@ -224,16 +164,6 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
                 break
     else:
         for pnl in lstpnl:
-            # fv0 = {'date': [], 'value': []}
-            # for v in pnl['pnl'].values:
-            #     fv0['date'].append(datetime.fromtimestamp(
-            #         v.ts).strftime(dtFormat))
-
-            #     if isPerValue:
-            #         fv0['value'].append(v.perValue)
-            #     else:
-            #         fv0['value'].append(v.value - v.cost)
-
             df = buildPNLDataFrame(pnl, isPerValue, dtFormat, startTs)
 
             fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
@@ -255,15 +185,6 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
                                          name='{}:sell'.format(pnl['title'])))
 
     if baseline != None:
-        # fv0 = {'date': [], 'value': []}
-        # for v in baseline['pnl'].values:
-        #     fv0['date'].append(datetime.fromtimestamp(v.ts).strftime(dtFormat))
-
-        #     if isPerValue:
-        #         fv0['value'].append(v.perValue)
-        #     else:
-        #         fv0['value'].append(v.value - v.cost)
-
         df = buildPNLDataFrame(baseline, isPerValue, dtFormat, startTs)
 
         fig.add_trace(go.Scatter(x=df['date'], y=df['value'],
