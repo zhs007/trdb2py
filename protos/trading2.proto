@@ -106,6 +106,7 @@ message CtrlCondition {
     string name = 9;                                    // 实际的 Control Condition 类型，替代以前的 indicator
     int32 group = 10;                                   // 组，用来处理 (A&&B)||(C&&D) 这样的复杂判断，group之间只可能是或的关系
     repeated float int64Vals = 11;                      // int64参数
+    int32 ctrlIndex = 12;                               // 新增待买待卖状态，默认这个最大的为实际卖出，否则触发后仅进入下一阶段；阶段改变后，都会需要clear当前阶段状态
 }
 
 // IndicatorType - indicator类型
@@ -142,6 +143,7 @@ message BuyParams {
     int32 moneyParts = 12;                          // 将钱分成几部分
     int32 nextTimes = 13;                           // 信号触发后，下几次再买入，1表示下一次买入
     int32 depositMoney = 14;                        // 如果购买时，没有钱了，会先存入金额，再买入
+    float limitPrice = 15;                          // 一般用于右侧交易，高于这个价格就不买入了
 }
 
 // SellParams - sell parameters
@@ -155,6 +157,7 @@ message SellParams {
     int64 tsOffSell = 7;            // 配合assetCode用的卖出时差，如果是14:55分得价格购买，这里应该是14:55的秒差
     string typeSellAsset = 8;       // 配合assetCode用的卖出方式；为了更好的模拟交易，这里用来做交易价格，最差的情况应该用low卖出
     int32 nextTimes = 9;            // 信号触发后，下几次再卖出，1表示下一次卖出
+    float limitPrice = 10;          // 一般用于右侧交易，低于这个价格就不卖出了
 }
 
 // StopLossParams - stop loss parameters
