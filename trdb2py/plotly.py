@@ -172,14 +172,14 @@ def showPNLs2(lstpnl: list, baseline: dict = None, isPerValue: bool = True, dtFo
 
             if isShowBuy:
                 fv1 = genCtrlData(
-                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY)
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY, dtFormat=dtFormat)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:buy'.format(pnl['title'])))
 
             if isShowSell:
                 fv1 = genCtrlData(
-                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL)
+                    pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL, dtFormat=dtFormat)
                 fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                          mode='markers',
                                          name='{}:sell'.format(pnl['title'])))
