@@ -401,18 +401,15 @@ def buildPNLCtrlData(pnl: trdb2py.trading2_pb2.PNLAssetData, isPerValue: bool = 
         fv1['date'].append(datetime.fromtimestamp(v.ts).strftime(dtFormat))
         fv1['type'].append(CtrlTypeStr[v.type])
 
-        if v.type == ctrlType:
-            fv1['date'].append(datetime.fromtimestamp(v.ts).strftime(dtFormat))
-
-            vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
-            if vi >= 0:
-                if isPerValue:
-                    fv1['value'].append(pnl.values[vi].perValue)
-                else:
-                    fv1['value'].append(
-                        pnl.values[vi].value - pnl.values[vi].cost)
+        vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
+        if vi >= 0:
+            if isPerValue:
+                fv1['value'].append(pnl.values[vi].perValue)
             else:
-                fv1['value'].append(defVal)
+                fv1['value'].append(
+                    pnl.values[vi].value - pnl.values[vi].cost)
+        else:
+            fv1['value'].append(defVal)
 
         fv1['src'].append(v.volumeSrc)
         fv1['dst'].append(v.volumeDst)
@@ -422,4 +419,4 @@ def buildPNLCtrlData(pnl: trdb2py.trading2_pb2.PNLAssetData, isPerValue: bool = 
         fv1['moneyParts'].append(v.moneyParts)
         fv1['lastMoneyParts'].append(v.lastMoneyParts)
 
-    return pd.DataFrame(fv0)
+    return pd.DataFrame(fv1)
