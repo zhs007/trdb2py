@@ -8,6 +8,16 @@ import numpy as np
 import math
 from trdb2py.timeutils import str2timestamp, getDayInYear, getYearDays, calcYears
 
+CtrlTypeStr = [
+    'INIT',
+    'BUY',
+    'SELL',
+    'STOPLOSS',
+    'TAKEPROFIT',
+    'WITHDRAW',
+    'DEPOSIT',
+]
+
 
 def buildPNLReport(lstpnl: list) -> pd.DataFrame:
     """
@@ -382,3 +392,31 @@ def genCtrlData(pnl: trdb2py.trading2_pb2.PNLAssetData, ctrlType, isPerValue: bo
                 fv1['value'].append(defVal)
 
     return fv1
+
+
+def buildPNLCtrlData(pnl: trdb2py.trading2_pb2.PNLAssetData, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', defVal=1) -> pd.DataFrame:
+    fv1 = {'date': [], 'type': [], 'value': [], 'src':[],'dst':[],'fee':[], 'averageHoldingPrice':[],'sellPrice':[],'moneyParts':[],'lastMoneyParts':[]}
+
+    for v in pnl.lstCtrl:
+        fv1['date'].append(datetime.fromtimestamp(v.ts).strftime(dtFormat))
+        fv1['type'].append(CtrlTypeStr[v.type])
+
+        vi = getPNLValueWithTimestamp(v.ts, pnl, isAdd=False)
+        if vi >= 0:
+            if isPerValue:
+                fv1['value'].append(pnl.values[vi].perValue)
+            else:
+                fv1['value'].append(
+                    pnl.values[vi].value - pnl.values[vi].cost)
+        else:
+            fv1['value'].append(defVal)
+
+        fv1['src'].append(v.volumeSrc)
+        fv1['dst'].append(v.volumeDst)
+        fv1['fee'].append(v.fee)
+        fv1['averageHoldingPrice'].append(v.averageHoldingPrice)
+        fv1['sellPrice'].append(v.sellPrice)
+        fv1['moneyParts'].append(v.moneyParts)
+        fv1['lastMoneyParts'].append(v.lastMoneyParts)
+
+    return pd.DataFrame(fv1)
