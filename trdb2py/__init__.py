@@ -16,6 +16,6 @@ from trdb2py.plotly import (showAssetCandles, showHeatmap, showHeatmapWinRateInY
                             showWinRateInYears, showHeatmapWinRateInMonths, showWinRateInMonths,
                             showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month,
                             showPNL, showPNLs, showPNLs2, showBarResponseRateInYears,
-                            showAssetCandles2)
+                            showAssetCandles2, showIndicators)
 from trdb2py.trdb2utils import analysisResult, getIndicatorInResult, getFirstCtrlTs, buildPNLDataFrame
 import trdb2py.trading2_pb2
