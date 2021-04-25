@@ -508,12 +508,13 @@ def showAssetCandles2(title: str, candles2: dict, indicators: list = None, colum
         fig.show()
 
 
-def showIndicators(title: str, candles2: dict, indicators: list = None, toImg: bool = False, width=1024, height=768):
+def showIndicators(title: str, candles2: dict, indicators: list = None, mode: str = 'markers', toImg: bool = False, width=1024, height=768):
     fig = go.Figure()
 
     for v in indicators:
         if v in candles2:
             fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
+                                     mode='markers',
                                      name=v))
 
     if toImg:
