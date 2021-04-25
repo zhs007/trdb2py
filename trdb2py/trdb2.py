@@ -154,7 +154,8 @@ def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: 
 
 
 def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: str = '%Y-%m-%d', offset: int = 0,
-                     scale: float = 10000.0, indicators: slice = None, simCandle: trdb2py.trading2_pb2.Candles = None, ignoreCache: bool = False) -> dict:
+                     scale: float = 10000.0, indicators: slice = None, indicatorScale: float = 1.0,
+                     simCandle: trdb2py.trading2_pb2.Candles = None, ignoreCache: bool = False) -> dict:
 
     df = getAssetCandles(cfg, asset, tsStart, tsEnd,
                          simCandle=simCandle, dtFormat=dtFormat, scale=scale)
@@ -206,7 +207,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
         # print(ret1)
         if ret1 != None:
             for v in indicators:
-                idf = getIndicatorInResult(ret1, v, dtFormat, scale)
+                idf = getIndicatorInResult(ret1, v, dtFormat, indicatorScale)
                 if not idf.empty:
                     ret[v] = idf
 
