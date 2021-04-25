@@ -45,14 +45,16 @@ def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', isSh
                              name=pnl['title']))
 
     if isShowBuy:
-        fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY, dtFormat=dtFormat)
+        fv1 = genCtrlData(
+            pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_BUY, dtFormat=dtFormat)
 
         fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                  mode='markers',
                                  name='{}:buy'.format(pnl['title'])))
 
     if isShowSell:
-        fv1 = genCtrlData(pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL, dtFormat=dtFormat)
+        fv1 = genCtrlData(
+            pnl['pnl'], trdb2py.trading2_pb2.CtrlType.CTRL_SELL, dtFormat=dtFormat)
 
         fig.add_trace(go.Scatter(x=fv1['date'], y=fv1['value'],
                                  mode='markers',
@@ -498,6 +500,20 @@ def showAssetCandles2(title: str, candles2: dict, indicators: list = None, colum
         if v in candles2:
             fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
                                      mode='lines',
+                                     name=v))
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
+def showIndicators(title: str, candles2: dict, indicators: list = None, toImg: bool = False, width=1024, height=768):
+    fig = go.Figure()
+
+    for v in indicators:
+        if v in candles2:
+            fig.add_trace(go.Scatter(x=candles2[v]['date'], y=candles2[v]['val'],
                                      name=v))
 
     if toImg:
