@@ -105,7 +105,7 @@ def buildPNLDataFrame(result: dict, isPerValue: bool = True, dtFormat: str = '%Y
     return pd.DataFrame(fv0)
 
 
-def sortIndicator(df: pd.DataFrame, indicatorName: str) -> pd.DataFrame:
+def sortIndicator(df: pd.DataFrame) -> pd.DataFrame:
     df1 = df.sort_values('val').reset_index()
     df1['si'] = df1.index
 
