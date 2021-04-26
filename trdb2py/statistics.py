@@ -485,3 +485,18 @@ def buildPNLListResponseRateInYears2(lstpnl: list) -> list:
         arr.append({'title': v['title'], 'df': df})
 
     return arr
+
+
+def calcCandles2Indicators(candles: dict, indicators: list) -> pd.DataFrame:
+    fv0 = {
+        'name': [],
+        'min': [],
+        'max': [],
+    }
+
+    for v in indicators:
+        fv0['name'].append(v)
+        fv0['min'].append(candles[v]['val'])
+        fv0['max'].append(candles[v]['val'])
+
+    return pd.DataFrame(fv0)
