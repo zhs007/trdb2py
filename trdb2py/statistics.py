@@ -492,11 +492,17 @@ def calcCandles2Indicators(candles: dict, indicators: list) -> pd.DataFrame:
         'name': [],
         'min': [],
         'max': [],
+        'mean': [],
+        'std': [],
+        'var': [],
     }
 
     for v in indicators:
         fv0['name'].append(v)
-        fv0['min'].append(candles[v]['val'])
-        fv0['max'].append(candles[v]['val'])
+        fv0['min'].append(candles[v]['val'].min())
+        fv0['max'].append(candles[v]['val'].max())
+        fv0['mean'].append(candles[v]['val'].mean())
+        fv0['std'].append(candles[v]['val'].std())
+        fv0['var'].append(candles[v]['val'].var())
 
     return pd.DataFrame(fv0)
