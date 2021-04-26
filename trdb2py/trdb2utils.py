@@ -103,3 +103,10 @@ def buildPNLDataFrame(result: dict, isPerValue: bool = True, dtFormat: str = '%Y
             fv0['value'].append(v.value - v.cost)
 
     return pd.DataFrame(fv0)
+
+
+def sortIndicator(df: pd.DataFrame, indicatorName: str) -> pd.DataFrame:
+    df1 = df.sort_values('val').reset_index()
+    df1['si'] = df1.index
+
+    return df1
