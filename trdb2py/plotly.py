@@ -524,7 +524,7 @@ def showIndicators(title: str, candles2: dict, indicators: list = None, mode: st
         fig.show()
 
 
-def showIndicatorPie(title: str, dfIndicator: pd.DataFrame, lstname: list, funcCountIndex: 'function',
+def showIndicatorPie(title: str, dfIndicator: pd.DataFrame, lstname: list, funcCountIndex,
                      toImg: bool = False, width=1024, height=768):
     lstnums = []
     for _ in lstname:
