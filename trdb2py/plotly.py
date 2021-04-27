@@ -522,3 +522,21 @@ def showIndicators(title: str, candles2: dict, indicators: list = None, mode: st
         fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
+
+
+def showIndicatorPie(title: str, dfIndicator: pd.DataFrame, lstname: list, funcCountIndex,
+                     toImg: bool = False, width=1024, height=768):
+    lstnums = []
+    for _ in lstname:
+        lstnums.append(0)
+
+    for _, row in dfIndicator.iterrows():
+        ii = funcCountIndex(row['val'])
+        lstnums[ii] = lstnums[ii] + 1
+
+    fig = go.Figure(data=[go.Pie(labels=lstname, values=lstnums)])
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
