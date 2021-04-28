@@ -11,12 +11,12 @@ from trdb2py.pdutils import (buildPNLReport, getPNLLastTs, getPNLValueWithTimest
 from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
                                 buildPNLWinRateInMonths, buildPNLListWinRateInYears2,
                                 buildPNLListWinRateInMonths2, buildPNLListWinRate4Month,
-                                buildPNLListResponseRateInYears2, calcCandles2Indicators)
+                                buildPNLListResponseRateInYears2, calcCandles2Indicators, countIndicatorGroups)
 from trdb2py.plotly import (showAssetCandles, showHeatmap, showHeatmapWinRateInYears,
                             showWinRateInYears, showHeatmapWinRateInMonths, showWinRateInMonths,
                             showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month,
                             showPNL, showPNLs, showPNLs2, showBarResponseRateInYears,
-                            showAssetCandles2, showIndicators, showIndicatorPie)
+                            showAssetCandles2, showIndicators, showIndicatorPie, showBar, showPie)
 from trdb2py.trdb2utils import (analysisResult, getIndicatorInResult, getFirstCtrlTs, buildPNLDataFrame,
                                 sortIndicator)
 import trdb2py.trading2_pb2

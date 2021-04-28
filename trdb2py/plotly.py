@@ -540,3 +540,22 @@ def showIndicatorPie(title: str, dfIndicator: pd.DataFrame, lstname: list, funcC
         fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
+
+
+def showBar(title: str, labels, values, toImg: bool = False, width=1024, height=768):
+    fig = go.Figure(
+        data=[go.showBarWinRateInYears(labels=labels, values=values)])
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
+
+
+def showPie(title: str, labels, values, toImg: bool = False, width=1024, height=768):
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
