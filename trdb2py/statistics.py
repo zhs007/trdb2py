@@ -522,5 +522,6 @@ def countIndicatorGroups(dfIndicator: pd.DataFrame, lstVal: list) -> pd.DataFram
         for i in range(0, len(lstVal)):
             if row['val'] < lstVal[i]:
                 fv0['nums'][i] = fv0['nums'][i] + 1
+                break
 
     return pd.DataFrame(fv0)
