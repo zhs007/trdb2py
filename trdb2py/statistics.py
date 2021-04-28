@@ -506,3 +506,21 @@ def calcCandles2Indicators(candles: dict, indicators: list) -> pd.DataFrame:
         fv0['var'].append(candles[v]['val'].var())
 
     return pd.DataFrame(fv0)
+
+
+def countIndicatorGroups(dfIndicator: pd.DataFrame, lstVal: list) -> pd.DataFrame:
+    fv0 = {
+        'nums': [],
+        'name': [],
+    }
+
+    for v in lstVal:
+        fv0['name'].append(str(v))
+        fv0['nums'].append(0)
+
+    for _, row in dfIndicator.iterrows():
+        for i in range(0, len(lstVal)):
+            if row['val'] < lstVal[i]:
+                fv0['nums'][i] = fv0['nums'][i] + 1
+
+    return pd.DataFrame(fv0)
