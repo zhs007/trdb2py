@@ -542,9 +542,9 @@ def showIndicatorPie(title: str, dfIndicator: pd.DataFrame, lstname: list, funcC
         fig.show()
 
 
-def showBar(title: str, labels, values, toImg: bool = False, width=1024, height=768):
+def showBar(title: str, x, y, toImg: bool = False, width=1024, height=768):
     fig = go.Figure(
-        data=[go.Bar(labels=labels, values=values)])
+        data=[go.Bar(x=x, y=y)])
 
     if toImg:
         fig.show(renderer="png", width=width, height=height)
