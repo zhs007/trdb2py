@@ -559,3 +559,17 @@ def showPie(title: str, labels, values, toImg: bool = False, width=1024, height=
         fig.show(renderer="png", width=width, height=height)
     else:
         fig.show()
+
+
+def showHeatmap2(title: str, x, y, z, toImg: bool = False, width=1024, height=768):
+    # z - arr[y][x]
+
+    fig = go.Figure(data=go.Heatmap(
+        z=z,
+        x=x,
+        y=y))
+
+    if toImg:
+        fig.show(renderer="png", width=width, height=height)
+    else:
+        fig.show()
