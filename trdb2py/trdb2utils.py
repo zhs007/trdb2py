@@ -110,3 +110,47 @@ def sortIndicator(df: pd.DataFrame) -> pd.DataFrame:
     df1['si'] = df1.index
 
     return df1
+
+
+def genPNLMap(lstpnl: list, funcGetXY) -> dict:
+    """
+    buildPNLReport - 将PNL列表转换为Map方式，方便热力图
+    funcGetXY(pnl) -> {x, y}
+    """
+    fv0 = {
+        'x': [],
+        'y': [],
+        'data': [],
+    }
+
+    mapd = {}
+    arrx = []
+    arry = []
+
+    for v in lstpnl:
+        cr = funcGetXY(v)
+
+        if not cr['y'] in mapd:
+            mapd[cr['y']] = {}
+        
+        mapd[cr['y']][cr['x']] = v['pnl'].totalReturns
+
+        if arrx.index(cr['x']) < 0:
+            arrx.append(cr['x'])
+
+        if arry.index(cr['y']) < 0:
+            arry.append(cr['y'])
+    
+    arrx.sort()
+    arry.sort()
+
+    for y in arry:
+        fv0['y'].append(y)
+
+        for x in arrx:
+            if arry.index(cr['y']) == 0:
+                fv0['x'].append(x)
+
+            fv0['data'].append(mapd[y][x])
+
+    return fv0
