@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z&github.com/zhs007/tradingdb2/tradingpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10tradingdb2.proto\x12\ttradingpb\x1a\x0etrading2.proto\"&\n\x08\x46undSize\x12\x0c\n\x04size\x18\x01 \x01(\x02\x12\x0c\n\x04time\x18\x02 \x01(\x03\"\xbb\x01\n\x0b\x46undManager\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tstartTime\x18\x02 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x03 \x01(\x03\x12\x11\n\tbirthYear\x18\x04 \x01(\x03\x12\x0b\n\x03sex\x18\x05 \x01(\x08\x12\x11\n\teducation\x18\x06 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x07 \x01(\t\x12\x0e\n\x06resume\x18\x08 \x01(\t\x12&\n\x07results\x18\t \x03(\x0b\x32\x15.tradingpb.FundResult\"\xb2\x01\n\nFundResult\x12\x13\n\x0bmaxDrawdown\x18\x01 \x01(\x02\x12\x0e\n\x06sharpe\x18\x02 \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\x03 \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x04 \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x05 \x01(\x02\x12\x11\n\tstartTime\x18\x06 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x07 \x01(\x03\x12\x0c\n\x04name\x18\x08 \x01(\t\"\xca\x01\n\x04\x46und\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x12\n\ncreateTime\x18\x04 \x01(\x03\x12!\n\x04size\x18\x05 \x03(\x0b\x32\x13.tradingpb.FundSize\x12\x0f\n\x07\x63ompany\x18\x06 \x01(\t\x12(\n\x08managers\x18\x07 \x03(\x0b\x32\x16.tradingpb.FundManager\x12&\n\x07results\x18\x08 \x03(\x0b\x32\x15.tradingpb.FundResult\"y\n\nSymbolInfo\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x1d\n\x04\x66und\x18\x03 \x01(\x0b\x32\x0f.tradingpb.Fund\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\x10\n\x08\x66ullname\x18\x05 \x01(\t\x12\x0c\n\x04type\x18\x06 \x01(\t\"~\n\x11RequestUpdCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12#\n\x07\x63\x61ndles\x18\x02 \x01(\x0b\x32\x12.tradingpb.Candles\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"#\n\x0fReplyUpdCandles\x12\x10\n\x08lengthOK\x18\x01 \x01(\x05\"\xc8\x01\n\x11RequestGetCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0f\n\x03tag\x18\x04 \x01(\tB\x02\x18\x01\x12\x0f\n\x07tsStart\x18\x05 \x01(\x03\x12\r\n\x05tsEnd\x18\x06 \x01(\x03\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x08 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12\x0e\n\x06offset\x18\t \x01(\x05\"6\n\x0fReplyGetCandles\x12#\n\x07\x63\x61ndles\x18\x01 \x01(\x0b\x32\x12.tradingpb.Candles\"\x7f\n\x10RequestUpdSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12%\n\x06symbol\x18\x02 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\x1e\n\x0eReplyUpdSymbol\x12\x0c\n\x04isOK\x18\x01 \x01(\x08\"x\n\x10RequestGetSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"7\n\x0eReplyGetSymbol\x12%\n\x06symbol\x18\x01 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\"z\n\x11RequestGetSymbols\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\xff\x01\n\x11RequestSimTrading\x12\x31\n\x0c\x62\x61sicRequest\x18\x01 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12+\n\x06params\x18\x02 \x01(\x0b\x32\x1b.tradingpb.SimTradingParams\x12\x13\n\x0bignoreCache\x18\x03 \x01(\x08\x12\r\n\x05index\x18\x04 \x01(\x05\x12\x19\n\x11ignoreTotalReturn\x18\x05 \x01(\x02\x12\x0f\n\x07minNums\x18\x06 \x01(\x05\x12\x13\n\x07maxNums\x18\x07 \x01(\x05\x42\x02\x18\x01\x12\x0e\n\x06sortBy\x18\x08 \x01(\t\x12\x15\n\rmaxIgnoreNums\x18\t \x01(\x05\"k\n\x0fReplySimTrading\x12\x1f\n\x03pnl\x18\x01 \x03(\x0b\x32\x12.tradingpb.PNLData\x12(\n\x08\x62\x61seline\x18\x02 \x03(\x0b\x32\x12.tradingpb.PNLDataB\x02\x18\x01\x12\r\n\x05index\x18\x03 \x01(\x05\x32\x96\x04\n\nTradingDB2\x12J\n\nupdCandles\x12\x1c.tradingpb.RequestUpdCandles\x1a\x1a.tradingpb.ReplyUpdCandles\"\x00(\x01\x12J\n\ngetCandles\x12\x1c.tradingpb.RequestGetCandles\x1a\x1a.tradingpb.ReplyGetCandles\"\x00\x30\x01\x12\x45\n\tupdSymbol\x12\x1b.tradingpb.RequestUpdSymbol\x1a\x19.tradingpb.ReplyUpdSymbol\"\x00\x12\x45\n\tgetSymbol\x12\x1b.tradingpb.RequestGetSymbol\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x12I\n\ngetSymbols\x12\x1c.tradingpb.RequestGetSymbols\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x30\x01\x12H\n\nsimTrading\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00\x12M\n\x0bsimTrading2\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00(\x01\x30\x01\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
+  serialized_pb=b'\n\x10tradingdb2.proto\x12\ttradingpb\x1a\x0etrading2.proto\"&\n\x08\x46undSize\x12\x0c\n\x04size\x18\x01 \x01(\x02\x12\x0c\n\x04time\x18\x02 \x01(\x03\"\xbb\x01\n\x0b\x46undManager\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tstartTime\x18\x02 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x03 \x01(\x03\x12\x11\n\tbirthYear\x18\x04 \x01(\x03\x12\x0b\n\x03sex\x18\x05 \x01(\x08\x12\x11\n\teducation\x18\x06 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x07 \x01(\t\x12\x0e\n\x06resume\x18\x08 \x01(\t\x12&\n\x07results\x18\t \x03(\x0b\x32\x15.tradingpb.FundResult\"\xb2\x01\n\nFundResult\x12\x13\n\x0bmaxDrawdown\x18\x01 \x01(\x02\x12\x0e\n\x06sharpe\x18\x02 \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\x03 \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x04 \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x05 \x01(\x02\x12\x11\n\tstartTime\x18\x06 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x07 \x01(\x03\x12\x0c\n\x04name\x18\x08 \x01(\t\"\xca\x01\n\x04\x46und\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x12\n\ncreateTime\x18\x04 \x01(\x03\x12!\n\x04size\x18\x05 \x03(\x0b\x32\x13.tradingpb.FundSize\x12\x0f\n\x07\x63ompany\x18\x06 \x01(\t\x12(\n\x08managers\x18\x07 \x03(\x0b\x32\x16.tradingpb.FundManager\x12&\n\x07results\x18\x08 \x03(\x0b\x32\x15.tradingpb.FundResult\"y\n\nSymbolInfo\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x1d\n\x04\x66und\x18\x03 \x01(\x0b\x32\x0f.tradingpb.Fund\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\x10\n\x08\x66ullname\x18\x05 \x01(\t\x12\x0c\n\x04type\x18\x06 \x01(\t\"~\n\x11RequestUpdCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12#\n\x07\x63\x61ndles\x18\x02 \x01(\x0b\x32\x12.tradingpb.Candles\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"#\n\x0fReplyUpdCandles\x12\x10\n\x08lengthOK\x18\x01 \x01(\x05\"\xc8\x01\n\x11RequestGetCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0f\n\x03tag\x18\x04 \x01(\tB\x02\x18\x01\x12\x0f\n\x07tsStart\x18\x05 \x01(\x03\x12\r\n\x05tsEnd\x18\x06 \x01(\x03\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x08 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12\x0e\n\x06offset\x18\t \x01(\x05\"6\n\x0fReplyGetCandles\x12#\n\x07\x63\x61ndles\x18\x01 \x01(\x0b\x32\x12.tradingpb.Candles\"\x7f\n\x10RequestUpdSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12%\n\x06symbol\x18\x02 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\x1e\n\x0eReplyUpdSymbol\x12\x0c\n\x04isOK\x18\x01 \x01(\x08\"x\n\x10RequestGetSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"7\n\x0eReplyGetSymbol\x12%\n\x06symbol\x18\x01 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\"z\n\x11RequestGetSymbols\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\xff\x01\n\x11RequestSimTrading\x12\x31\n\x0c\x62\x61sicRequest\x18\x01 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12+\n\x06params\x18\x02 \x01(\x0b\x32\x1b.tradingpb.SimTradingParams\x12\x13\n\x0bignoreCache\x18\x03 \x01(\x08\x12\r\n\x05index\x18\x04 \x01(\x05\x12\x19\n\x11ignoreTotalReturn\x18\x05 \x01(\x02\x12\x0f\n\x07minNums\x18\x06 \x01(\x05\x12\x13\n\x07maxNums\x18\x07 \x01(\x05\x42\x02\x18\x01\x12\x0e\n\x06sortBy\x18\x08 \x01(\t\x12\x15\n\rmaxIgnoreNums\x18\t \x01(\x05\"k\n\x0fReplySimTrading\x12\x1f\n\x03pnl\x18\x01 \x03(\x0b\x32\x12.tradingpb.PNLData\x12(\n\x08\x62\x61seline\x18\x02 \x03(\x0b\x32\x12.tradingpb.PNLDataB\x02\x18\x01\x12\r\n\x05index\x18\x03 \x01(\x05\"D\n\x11TradingTaskResult\x12\x1f\n\x03pnl\x18\x01 \x03(\x0b\x32\x12.tradingpb.PNLData\x12\x0e\n\x06taskid\x18\x02 \x01(\x03\"u\n\x12RequestTradingTask\x12\x31\n\x0c\x62\x61sicRequest\x18\x01 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12,\n\x06result\x18\x02 \x01(\x0b\x32\x1c.tradingpb.TradingTaskResult\"O\n\x10ReplyTradingTask\x12+\n\x06params\x18\x01 \x01(\x0b\x32\x1b.tradingpb.SimTradingParams\x12\x0e\n\x06taskid\x18\x02 \x01(\x03\x32\xba\x05\n\nTradingDB2\x12J\n\nupdCandles\x12\x1c.tradingpb.RequestUpdCandles\x1a\x1a.tradingpb.ReplyUpdCandles\"\x00(\x01\x12J\n\ngetCandles\x12\x1c.tradingpb.RequestGetCandles\x1a\x1a.tradingpb.ReplyGetCandles\"\x00\x30\x01\x12\x45\n\tupdSymbol\x12\x1b.tradingpb.RequestUpdSymbol\x1a\x19.tradingpb.ReplyUpdSymbol\"\x00\x12\x45\n\tgetSymbol\x12\x1b.tradingpb.RequestGetSymbol\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x12I\n\ngetSymbols\x12\x1c.tradingpb.RequestGetSymbols\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x30\x01\x12H\n\nsimTrading\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00\x12M\n\x0bsimTrading2\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00(\x01\x30\x01\x12M\n\x0bsimTrading3\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00(\x01\x30\x01\x12S\n\x0freqTradingTask3\x12\x1d.tradingpb.RequestTradingTask\x1a\x1b.tradingpb.ReplyTradingTask\"\x00(\x01\x30\x01\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
   ,
   dependencies=[trading2__pb2.DESCRIPTOR,])
 
@@ -930,6 +930,123 @@ _REPLYSIMTRADING = _descriptor.Descriptor(
   serialized_end=2039,
 )
 
+
+_TRADINGTASKRESULT = _descriptor.Descriptor(
+  name='TradingTaskResult',
+  full_name='tradingpb.TradingTaskResult',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='pnl', full_name='tradingpb.TradingTaskResult.pnl', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='taskid', full_name='tradingpb.TradingTaskResult.taskid', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2041,
+  serialized_end=2109,
+)
+
+
+_REQUESTTRADINGTASK = _descriptor.Descriptor(
+  name='RequestTradingTask',
+  full_name='tradingpb.RequestTradingTask',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='basicRequest', full_name='tradingpb.RequestTradingTask.basicRequest', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='result', full_name='tradingpb.RequestTradingTask.result', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2111,
+  serialized_end=2228,
+)
+
+
+_REPLYTRADINGTASK = _descriptor.Descriptor(
+  name='ReplyTradingTask',
+  full_name='tradingpb.ReplyTradingTask',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='params', full_name='tradingpb.ReplyTradingTask.params', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='taskid', full_name='tradingpb.ReplyTradingTask.taskid', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2230,
+  serialized_end=2309,
+)
+
 _FUNDMANAGER.fields_by_name['results'].message_type = _FUNDRESULT
 _FUND.fields_by_name['size'].message_type = _FUNDSIZE
 _FUND.fields_by_name['managers'].message_type = _FUNDMANAGER
@@ -948,6 +1065,10 @@ _REQUESTSIMTRADING.fields_by_name['basicRequest'].message_type = trading2__pb2._
 _REQUESTSIMTRADING.fields_by_name['params'].message_type = trading2__pb2._SIMTRADINGPARAMS
 _REPLYSIMTRADING.fields_by_name['pnl'].message_type = trading2__pb2._PNLDATA
 _REPLYSIMTRADING.fields_by_name['baseline'].message_type = trading2__pb2._PNLDATA
+_TRADINGTASKRESULT.fields_by_name['pnl'].message_type = trading2__pb2._PNLDATA
+_REQUESTTRADINGTASK.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
+_REQUESTTRADINGTASK.fields_by_name['result'].message_type = _TRADINGTASKRESULT
+_REPLYTRADINGTASK.fields_by_name['params'].message_type = trading2__pb2._SIMTRADINGPARAMS
 DESCRIPTOR.message_types_by_name['FundSize'] = _FUNDSIZE
 DESCRIPTOR.message_types_by_name['FundManager'] = _FUNDMANAGER
 DESCRIPTOR.message_types_by_name['FundResult'] = _FUNDRESULT
@@ -964,6 +1085,9 @@ DESCRIPTOR.message_types_by_name['ReplyGetSymbol'] = _REPLYGETSYMBOL
 DESCRIPTOR.message_types_by_name['RequestGetSymbols'] = _REQUESTGETSYMBOLS
 DESCRIPTOR.message_types_by_name['RequestSimTrading'] = _REQUESTSIMTRADING
 DESCRIPTOR.message_types_by_name['ReplySimTrading'] = _REPLYSIMTRADING
+DESCRIPTOR.message_types_by_name['TradingTaskResult'] = _TRADINGTASKRESULT
+DESCRIPTOR.message_types_by_name['RequestTradingTask'] = _REQUESTTRADINGTASK
+DESCRIPTOR.message_types_by_name['ReplyTradingTask'] = _REPLYTRADINGTASK
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 FundSize = _reflection.GeneratedProtocolMessageType('FundSize', (_message.Message,), {
@@ -1078,6 +1202,27 @@ ReplySimTrading = _reflection.GeneratedProtocolMessageType('ReplySimTrading', (_
   })
 _sym_db.RegisterMessage(ReplySimTrading)
 
+TradingTaskResult = _reflection.GeneratedProtocolMessageType('TradingTaskResult', (_message.Message,), {
+  'DESCRIPTOR' : _TRADINGTASKRESULT,
+  '__module__' : 'tradingdb2_pb2'
+  # @@protoc_insertion_point(class_scope:tradingpb.TradingTaskResult)
+  })
+_sym_db.RegisterMessage(TradingTaskResult)
+
+RequestTradingTask = _reflection.GeneratedProtocolMessageType('RequestTradingTask', (_message.Message,), {
+  'DESCRIPTOR' : _REQUESTTRADINGTASK,
+  '__module__' : 'tradingdb2_pb2'
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestTradingTask)
+  })
+_sym_db.RegisterMessage(RequestTradingTask)
+
+ReplyTradingTask = _reflection.GeneratedProtocolMessageType('ReplyTradingTask', (_message.Message,), {
+  'DESCRIPTOR' : _REPLYTRADINGTASK,
+  '__module__' : 'tradingdb2_pb2'
+  # @@protoc_insertion_point(class_scope:tradingpb.ReplyTradingTask)
+  })
+_sym_db.RegisterMessage(ReplyTradingTask)
+
 
 DESCRIPTOR._options = None
 _REQUESTUPDCANDLES.fields_by_name['token']._options = None
@@ -1096,8 +1241,8 @@ _TRADINGDB2 = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2042,
-  serialized_end=2576,
+  serialized_start=2312,
+  serialized_end=3010,
   methods=[
   _descriptor.MethodDescriptor(
     name='updCandles',
@@ -1166,6 +1311,26 @@ _TRADINGDB2 = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_REQUESTSIMTRADING,
     output_type=_REPLYSIMTRADING,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='simTrading3',
+    full_name='tradingpb.TradingDB2.simTrading3',
+    index=7,
+    containing_service=None,
+    input_type=_REQUESTSIMTRADING,
+    output_type=_REPLYSIMTRADING,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='reqTradingTask3',
+    full_name='tradingpb.TradingDB2.reqTradingTask3',
+    index=8,
+    containing_service=None,
+    input_type=_REQUESTTRADINGTASK,
+    output_type=_REPLYTRADINGTASK,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
