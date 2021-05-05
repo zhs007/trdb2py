@@ -144,16 +144,20 @@ def genPNLMap(lstpnl: list, funcGetXY) -> dict:
     arrx.sort()
     arry.sort()
 
+    first = True
+
     for y in arry:
         fv0['y'].append(y)
 
         for x in arrx:
-            if arry.index(cr['y']) == 0:
+            if first:
                 fv0['x'].append(x)
 
             if (y in mapd) and (x in mapd[y]):
                 fv0['data'].append(mapd[y][x])
             else:
                 fv0['data'].append(0)
+        
+        first = False
 
     return fv0
