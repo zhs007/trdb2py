@@ -7,5 +7,3 @@ WORKDIR /src/trdb2py
 COPY . /src/trdb2py/
 
 RUN pip install -r requirements.env.txt
-
-RUN pytest
