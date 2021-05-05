@@ -135,10 +135,10 @@ def genPNLMap(lstpnl: list, funcGetXY) -> dict:
         
         mapd[cr['y']][cr['x']] = v['pnl'].totalReturns
 
-        if arrx.index(cr['x']) < 0:
+        if not cr['x'] in arrx:
             arrx.append(cr['x'])
 
-        if arry.index(cr['y']) < 0:
+        if not cr['y'] in arry:
             arry.append(cr['y'])
     
     arrx.sort()
