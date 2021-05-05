@@ -1,0 +1,11 @@
+FROM python:3.8-buster
+
+LABEL writer="zerrozhao@gmail.com"
+
+WORKDIR /src/trdb2py
+
+COPY . /src/trdb2py/
+
+RUN pip install -r requirements.env.txt
+
+RUN pytest

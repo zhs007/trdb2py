@@ -1,0 +1,1 @@
+docker build -f ./Dockerfile.pytest -t trdb2py.pytest .
