@@ -212,3 +212,20 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
                     ret[v] = idf
 
     return ret
+
+
+def simTradings3(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache: bool = False,
+                minNums: int = 10, maxIgnoreNums: int = 0) -> list:
+    channel = grpc.insecure_channel(cfg['servaddr'])
+    stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    lstRes = []
+    responses = stub.simTrading3(
+        genSimTradingParams(cfg, lstParams, ignoreTotalReturn=ignoreTotalReturn,
+                            ignoreCache=ignoreCache, minNums=minNums, maxIgnoreNums=maxIgnoreNums))
+    for response in responses:
+        if len(response.pnl) > 0:
+            pnl = response.pnl[0]
+            lstRes.append({'title': pnl.title, 'pnl': pnl.total})
+
+    return lstRes
