@@ -123,7 +123,7 @@ def simTradings(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache:
     stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
     lstRes = []
-    responses = stub.simTrading2(
+    responses = stub.simTrading3(
         genSimTradingParams(cfg, lstParams, ignoreTotalReturn=ignoreTotalReturn,
                             ignoreCache=ignoreCache, minNums=minNums, maxIgnoreNums=maxIgnoreNums))
     for response in responses:
@@ -135,20 +135,23 @@ def simTradings(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache:
 
 
 def simTrading(cfg, params: trdb2py.trading2_pb2.SimTradingParams, ignoreCache: bool = False) -> dict:
-    channel = grpc.insecure_channel(cfg['servaddr'])
-    stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+    lst = simTradings(cfg, [params], ignoreCache=ignoreCache)
+    if len(lst) > 0:
+        return lst[0]
+    # channel = grpc.insecure_channel(cfg['servaddr'])
+    # stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
-    response = stub.simTrading(trdb2py.tradingdb2_pb2.RequestSimTrading(
-        basicRequest=trdb2py.trading2_pb2.BasicRequestData(
-            token=cfg['token'],
-        ),
-        params=params,
-        ignoreCache=ignoreCache,
-    ))
+    # response = stub.simTrading(trdb2py.tradingdb2_pb2.RequestSimTrading(
+    #     basicRequest=trdb2py.trading2_pb2.BasicRequestData(
+    #         token=cfg['token'],
+    #     ),
+    #     params=params,
+    #     ignoreCache=ignoreCache,
+    # ))
 
-    if len(response.pnl) > 0:
-        pnl = response.pnl[0]
-        return {'title': pnl.title, 'pnl': pnl.total}
+    # if len(response.pnl) > 0:
+    #     pnl = response.pnl[0]
+    #     return {'title': pnl.title, 'pnl': pnl.total}
 
     return None
 
