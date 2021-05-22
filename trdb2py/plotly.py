@@ -28,6 +28,8 @@ def showAssetCandles(title: str, dfCandles: pd.DataFrame, columm: str = 'close',
 
 def showPNL(pnl: dict, isPerValue: bool = True, dtFormat: str = '%Y-%m-%d', isShowBuy: bool = False, isShowSell: bool = False,
             toImg: bool = False, width=1024, height=768):
+    if pnl is None:
+        return 
 
     fv0 = {'date': [], 'value': []}
     for v in pnl['pnl'].values:
