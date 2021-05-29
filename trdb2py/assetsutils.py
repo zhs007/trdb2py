@@ -10,3 +10,19 @@ def calcAssetsSimilarity(cfg: dict, asset0: str, asset1: str, tsStart: int, tsEn
     candles1 = getAssetCandles3(cfg, asset1, tsStart, tsEnd)
 
     return calcCandlesSimilarity(candles0, candles1)
+
+
+def calcAssetsSimilarity2(cfg: dict, names: list, assets: list, tsStart: int, tsEnd: int):
+    arr = []
+    for asset0 in assets:
+        list = []
+        for asset1 in assets:
+            if asset0 == asset1:
+                list.append(1.0)
+            else:
+                cs = calcAssetsSimilarity(cfg, asset0, asset1, tsStart, tsEnd)
+                list.append(cs)
+
+        arr.append(list)
+
+    return arr
