@@ -218,7 +218,7 @@ def getAssetCandles2(cfg: dict, asset: str, tsStart: int, tsEnd: int, dtFormat: 
 
 
 def simTradings3(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache: bool = False,
-                minNums: int = 10, maxIgnoreNums: int = 0) -> list:
+                 minNums: int = 10, maxIgnoreNums: int = 0) -> list:
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
@@ -232,3 +232,32 @@ def simTradings3(cfg, lstParams: list, ignoreTotalReturn: float = 0, ignoreCache
             lstRes.append({'title': pnl.title, 'pnl': pnl.total})
 
     return lstRes
+
+
+def getAssetCandles3(cfg: dict, asset: str, tsStart: int, tsEnd: int) -> trdb2py.trading2_pb2.Candles:
+    channel = grpc.insecure_channel(cfg['servaddr'])
+    stub = trdb2py.tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    curasset = str2asset(asset)
+
+    response = stub.getCandles(trdb2py.tradingdb2_pb2.RequestGetCandles(
+        market=curasset.market,
+        symbol=curasset.code,
+        tsStart=tsStart,
+        tsEnd=tsEnd,
+        basicRequest=trdb2py.trading2_pb2.BasicRequestData(
+            token=cfg['token'],
+        ),
+    ))
+
+    ret = trdb2py.trading2_pb2.Candles(
+        market=curasset.market,
+        symbol=curasset.code,
+        candles=[],
+    )
+
+    for curres in response:
+        for candle in curres.candles.candles:
+            ret.candles.append(candle)
+
+    return ret
