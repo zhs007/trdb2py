@@ -46,8 +46,9 @@ def calcCandlesSimilarity_LowLevel(candles0: trdb2py.trading2_pb2.Candles, candl
         else:
             arr1.append(0.0)
 
-    arr = []
+    nums = 0
     for i in range(len(arr0)):
-        arr.append(arr1[i] / arr0[i])
+        if arr1[i] == arr0[i]:
+            nums = nums + 1
 
-    return np.mean(arr)
+    return nums / len(arr0)
