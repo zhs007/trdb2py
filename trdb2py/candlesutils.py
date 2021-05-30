@@ -48,7 +48,7 @@ def calcCandlesSimilarity_LowLevel(candles0: trdb2py.trading2_pb2.Candles, candl
 
     nums = 0
     for i in range(len(arr0)):
-        if arr1[i] == arr0[i]:
+        if (arr0[i] > 0 and arr1[i] >= 0) or (arr0[i] < 0 and arr1[i] <= 0) or (arr1[i] > 0 and arr0[i] >= 0) or (arr1[i] < 0 and arr0[i] <= 0):
             nums = nums + 1
 
     return nums / len(arr0)
