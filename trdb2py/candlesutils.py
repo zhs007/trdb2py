@@ -124,4 +124,4 @@ def calcCandlesSimilarity_LowLevel2(candles0: trdb2py.trading2_pb2.Candles, cand
             else:
                 cv += abs(arrv1[i]) / abs(arrv0[i])
 
-    return (nums / len(arr0)) * (cv / nums)
+    return (cv / nums)
