@@ -87,26 +87,17 @@ def calcCandlesSimilarity_LowLevel2(candles0: trdb2py.trading2_pb2.Candles, cand
     cv = 0
     for i in range(len(arr0)):
         if (arr0[i] == 0 and arr1[i] == 0):
-            nums = nums + 1
+            nums += 1
 
-            cv = cv + 1.0
-        elif (arr0[i] > 0 and arr1[i] >= 0) or (arr1[i] > 0 and arr0[i] >= 0):
-            nums = nums + 1
+            cv += 1.0
+        elif (arr0[i] > 0 and arr1[i] >= 0) or (arr1[i] > 0 and arr0[i] >= 0) and (arr0[i] < 0 and arr1[i] <= 0) or (arr1[i] < 0 and arr0[i] <= 0):
+            nums += 1
 
-            if arrv0[i] < arrv1[i]:
-                cv = cv + arrv0[i] / arrv1[i]
-            elif arr0[i] == 0:
-                cv = cv + 0.0
+            if abs(arrv0[i]) < abs(arrv1[i]):
+                cv += abs(arrv0[i]) / abs(arrv1[i])
+            elif abs(arr0[i]) == 0:
+                cv += 0.0
             else:
-                cv = cv + arrv1[i] / arrv0[i]
-        elif (arr0[i] < 0 and arr1[i] <= 0) or (arr1[i] < 0 and arr0[i] <= 0):
-            nums = nums + 1
-
-            if arrv0[i] > arrv1[i]:
-                cv = cv + arrv0[i] / arrv1[i]
-            elif arr0[i] == 0:
-                cv = cv + 0.0
-            else:
-                cv = cv + arrv1[i] / arrv0[i]            
+                cv += abs(arrv1[i]) / abs(arrv0[i])
 
     return (nums / len(arr0)) * (cv / nums)
