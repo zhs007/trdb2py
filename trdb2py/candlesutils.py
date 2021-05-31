@@ -9,42 +9,23 @@ def calcCandlesSimilarity(candles0: trdb2py.trading2_pb2.Candles, candles1: trdb
 
     arr0 = []
     arr1 = []
-    arrv0 = []
-    arrv1 = []
 
     for candle in candles0.candles:
-        arrv0.append(candle.close - candle.open)
-
-        if candle.close > candle.open:
-            arr0.append(1.0)
-        elif candle.close < candle.open:
-            arr0.append(-1.0)
-        else:
-            arr0.append(0.0)
+        arr0.append(candle.close - candle.open)
 
     for candle in candles1.candles:
-        arrv1.append(candle.close - candle.open)        
+        arr1.append(candle.close - candle.open)
 
-        if candle.close > candle.open:
-            arr1.append(1.0)
-        elif candle.close < candle.open:
-            arr1.append(-1.0)
-        else:
-            arr1.append(0.0)
-
-    cv = 0
+    arr = []
     for i in range(len(arr0)):
-        if (arr0[i] == 0 and arr1[i] == 0):
-            cv += 1.0
-        elif (arr0[i] > 0 and arr1[i] >= 0) or (arr1[i] > 0 and arr0[i] >= 0) and (arr0[i] < 0 and arr1[i] <= 0) or (arr1[i] < 0 and arr0[i] <= 0):
-            if abs(arrv0[i]) < abs(arrv1[i]):
-                cv += abs(arrv0[i]) / abs(arrv1[i])
-            elif abs(arr0[i]) == 0:
-                cv += 0.0
-            else:
-                cv += abs(arrv1[i]) / abs(arrv0[i])
+        if arr1[i] == arr0[i]:
+            arr.append(1)
+        elif arr0[i] > arr1[i]:
+            arr.append(arr1[i] / arr0[i])
+        elif arr1[i] > arr0[i]:
+            arr.append(arr0[i] / arr1[i])
 
-    return (cv / len(arr0))
+    return np.mean(arr)
 
 
 def calcCandlesSimilarity_LowLevel(candles0: trdb2py.trading2_pb2.Candles, candles1: trdb2py.trading2_pb2.Candles):
