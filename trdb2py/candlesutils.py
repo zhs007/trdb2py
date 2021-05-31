@@ -19,11 +19,17 @@ def calcCandlesSimilarity(candles0: trdb2py.trading2_pb2.Candles, candles1: trdb
     arr = []
     for i in range(len(arr0)):
         if arr1[i] == arr0[i]:
-            arr.append(1)
-        elif arr0[i] > arr1[i]:
+            arr.append(1.0)
+        elif arr0[i] > arr1[i] and arr1[i] >= 0:
             arr.append(arr1[i] / arr0[i])
-        elif arr1[i] > arr0[i]:
+        elif arr1[i] > arr0[i] and arr0[i] >= 0:
             arr.append(arr0[i] / arr1[i])
+        elif arr0[i] > arr1[i] and arr0[i] <= 0:
+            arr.append(arr0[i] / arr1[i])
+        elif arr1[i] > arr0[i] and arr1[i] <= 0:
+            arr.append(arr1[i] / arr0[i])            
+        else:
+            arr.append(-1.0)
 
     return np.mean(arr)
 
@@ -44,11 +50,17 @@ def calcCandlesSimilarity_ln(candles0: trdb2py.trading2_pb2.Candles, candles1: t
     arr = []
     for i in range(len(arr0)):
         if arr1[i] == arr0[i]:
-            arr.append(np.log(1))
-        elif arr0[i] > arr1[i]:
+            arr.append(np.log(1.0))
+        elif arr0[i] > arr1[i] and arr1[i] >= 0:
             arr.append(np.log(arr1[i] / arr0[i]))
-        elif arr1[i] > arr0[i]:
+        elif arr1[i] > arr0[i] and arr0[i] >= 0:
             arr.append(np.log(arr0[i] / arr1[i]))
+        elif arr0[i] > arr1[i] and arr0[i] <= 0:
+            arr.append(np.log(arr0[i] / arr1[i]))
+        elif arr1[i] > arr0[i] and arr1[i] <= 0:
+            arr.append(np.log(arr1[i] / arr0[i]))
+        else:
+            arr.append(np.log(-1.0))
 
     return np.mean(arr)    
 
