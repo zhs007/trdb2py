@@ -18,7 +18,8 @@ from trdb2py.pdutils import (buildPNLReport, getPNLLastTs, getPNLValueWithTimest
 from trdb2py.statistics import (calcPNLWinRateInYear, buildPNLWinRateInYears,
                                 buildPNLWinRateInMonths, buildPNLListWinRateInYears2,
                                 buildPNLListWinRateInMonths2, buildPNLListWinRate4Month,
-                                buildPNLListResponseRateInYears2, calcCandles2Indicators, countIndicatorGroups)
+                                buildPNLListResponseRateInYears2, calcCandles2Indicators, countIndicatorGroups,
+                                genIndicatorGroupsValList)
 from trdb2py.plotly import (showAssetCandles, showHeatmap, showHeatmapWinRateInYears,
                             showWinRateInYears, showHeatmapWinRateInMonths, showWinRateInMonths,
                             showBarWinRateInMonths, showBarWinRateInYears, showBarWinRate4Month,

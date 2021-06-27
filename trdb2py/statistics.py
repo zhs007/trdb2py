@@ -3,6 +3,7 @@ import trdb2py.trading2_pb2
 from trdb2py.utils import str2asset
 from datetime import datetime
 import time
+import math
 import pandas as pd
 
 
@@ -525,3 +526,15 @@ def countIndicatorGroups(dfIndicator: pd.DataFrame, lstVal: list) -> pd.DataFram
                 break
 
     return pd.DataFrame(fv0)
+
+
+def genIndicatorGroupsValList(candle: dict, off:int = 1) -> list:
+    minval = math.floor(candle['val'].min())
+    maxval = math.ceil(candle['val'].max())
+    arr = []
+
+    for i in range(minval, maxval + 1):
+        arr.append(i)
+
+    return arr
+
